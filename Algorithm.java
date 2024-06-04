@@ -1,8 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Scanner;
 import org.w3c.dom.NodeList;
-import java.util.ArrayList;
 import java.util.*;
 
 // class bfs {
@@ -115,7 +111,8 @@ public class Algorithm extends Graph {
                     ArrayList<Integer> nowList = now.getList();
                     for (int j = 0; j < nowList.size(); j++) {
                         // nowList.get(j)がP上にないかつnowList.get(j)の親候補にnowが含まれていない
-                        if (!NodeList.get(nowList.get(j)).getOnPp() && isPotentialPp(nowList.get(j), i)) {
+                        if (!NodeList.get(nowList.get(j)).getOnPp()
+                                && isPotentialPp(nowList.get(j), i)) {
                             // R_nowとR_nowList.get(j)を比較
                             if (now.getRp() < NodeList.get(nowList.get(j)).getRp()) {
                                 // break;
@@ -190,8 +187,83 @@ public class Algorithm extends Graph {
 
     // 親候補の中から親を一つ決定する
     public void defineParPp() {
-        // test
+        // d値を設定＆更新
+        for (int i = 0; i < NodeList.size(); i++) {
+            NodeList.get(i).setDp(-1);
+            NodeList.get(i).setDefineDp(false);
+        }
 
+        for (int i = 0; i < NodeList.size(); i++) {
+            if (NodeList.get(i).getPotentialPp().isEmpty()) {
+                NodeList.get(i).setDp(1);
+                NodeList.get(i).setDefineDp(true);
+            }
+        }
+
+        boolean update = true;
+        while (update) {
+            update = false;
+            for (int i = 0; i < NodeList.size(); i++) {
+                Node now = NodeList.get(i);
+                // ArrayList<Integer> nowList = now.getList();
+                ArrayList<Integer> DPotential = now.getPotentialPp();
+                if (!now.getdefineDp()) {
+                    if (NodeList.get(DPotential.get(0)).getdp() != -1) {
+                        now.setDp(NodeList.get(DPotential.get(0)).getdp() + 1);
+                        now.setDefineDp(true);
+                    }
+                }
+            }
+            for (int i = 0; i < NodeList.size(); i++) {
+                Node now = NodeList.get(i);
+                if (!now.getdefineDp()) {
+                    update = true;
+                }
+            }
+        }
+        // 親ノードの決定
+        for (int i = 0; i < NodeList.size(); i++) {
+            NodeList.get(i).setDefineParp(false);
+        }
+
+        for (int i = 0; i < NodeList.size(); i++) {
+            Node now = NodeList.get(i);
+            ArrayList<Integer> nowPotentialList = now.getPotentialPp();
+            // ノードnowのR値が親候補であるP上のノードのL値と等しい場合そのノードを親とする
+            for (int j = 0; j < nowPotentialList.size(); j++) {
+                // ノードnowの親候補リスト内のj番目の要素がP上のノードなら
+                if (NodeList.get(nowPotentialList.get(j)).getOnPp()) {
+                    // 該当ノードのL値とノードnowのR値が等しいなら
+                    if (now.getRp() == NodeList.get(nowPotentialList.get(j)).getLp()) {
+                        now.setParp(nowPotentialList.get(j));
+                        NodeList.get(nowPotentialList.get(j)).setChildp(i);
+                        now.setDefineParp(true);
+                        break;
+                    }
+                }
+            }
+            // そうでない場合親候補のうちd値が最小のノードを親とし、d値も同じ場合はノードIDが小さい方を親とする
+            for (int j = 0; j < nowPotentialList.size(); j++) {
+                if (!now.getdefineParp()) {
+                    if (nowPotentialList.size() == 1) {
+                        now.setParp(nowPotentialList.get(0));
+                        NodeList.get(nowPotentialList.get(j)).setChildp(i);
+                    } else if(nowPotentialList.size() > 1){
+                        for (int k = 0; k < nowPotentialList.size(); k++) {
+                            now.setdList(NodeList.get(nowPotentialList.get(k)).getdp());
+                        }
+                        Collections.sort(now.getdList());
+                        int min = now.getdList().get(0);
+                        for(int k = 0; k < nowPotentialList.size(); k++) {
+                            if(min == nowPotentialList.get(k)) {
+                                now.setParp(nowPotentialList.get(k));
+                                NodeList.get(nowPotentialList.get(k)).setChildp(i);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // BFS木の葉ノードにFpを割り当て、P上の根は最大のFを収集
@@ -200,4 +272,8 @@ public class Algorithm extends Graph {
     }
 
     // step1.3
+    // step1.4
+    // step2
+    // step3
+    // step4
 }

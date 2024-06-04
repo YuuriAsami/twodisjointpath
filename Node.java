@@ -15,7 +15,10 @@ public class Node {
     private boolean OnPp; // ノードpが最短経路P上に存在するか
     private int Rp; // ノードpを含んでいる木における根のL距離
     private int Parp; // step1.2以降のBFS木におけるノードpの親ID
+    private boolean defineParp; // step1.2以降のBFS木におけるノードpの親が決まったか
+    private ArrayList<Integer> dList;
     private int dp; // ノードpからpを含む木における根までの距離
+    private boolean defineDp; // ノードpのdpが決定されたかどうか
     private int Fp; // 自身を根とする木における葉ノードのLpの最大値??
     private ArrayList<Integer> PotentialPp; // ノードpの親となる可能性のあるノードID
     private int Mp; // 探索中のリンクパスPiの終点のL距離
@@ -38,6 +41,7 @@ public class Node {
         list = new ArrayList<>();
         PotentialPp = new ArrayList<>();
         Childp = new ArrayList<>();
+        dList = new ArrayList<>();
     }
     
     public ArrayList<Integer> getList() {
@@ -88,8 +92,20 @@ public class Node {
         return Parp;
     }
 
+    public boolean getdefineParp() {
+        return defineParp;
+    }
+
     public int getdp() {
         return dp;
+    }
+
+    public boolean getdefineDp() {
+        return defineDp;
+    }
+
+    public ArrayList<Integer> getdList() {
+        return dList;
     }
 
     public int getFp() {
@@ -166,6 +182,18 @@ public class Node {
 
     public void setParp(int parp) {
         Parp = parp;
+    }
+
+    public void setDefineDp(boolean defineDp) {
+        this.defineDp = defineDp;
+    }
+
+    public void setDefineParp(boolean defineParp) {
+        this.defineParp = defineParp;
+    }
+
+    public void setdList(int d) {
+        dList.add(d);
     }
 
     public void removePotentialPp() {
