@@ -98,8 +98,6 @@ public class Algorithm extends Graph {
                         }
                     }
                 }
-            } else {
-                // break;
             }
         }
 
@@ -192,6 +190,7 @@ public class Algorithm extends Graph {
 
     // 親候補の中から親を一つ決定する
     public void defineParPp() {
+        // test
 
     }
 
