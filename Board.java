@@ -114,7 +114,7 @@ public class Board extends JPanel implements ActionListener {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 //g.drawString("s1", tmp.getX()-20, tmp.getY()-20);
-                g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+",PotentialPp: "+tmp.getPotentialPp()+",Rp: "+tmp.getRp(), tmp.getX()-20, tmp.getY()-20);
+                g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+",Rp: "+tmp.getRp()+",PotentialPp: "+tmp.getPotentialPp(), tmp.getX()-20, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
                 g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
             } else if(tmp.gets2p()) {
@@ -122,7 +122,8 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                g.drawString("s2", tmp.getX()-20, tmp.getY()-20);
+                //g.drawString("s2", tmp.getX()-20, tmp.getY()-20);
+                g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+",Rp: "+tmp.getRp()+",PotentialPp: "+tmp.getPotentialPp(), tmp.getX()-20, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
                 g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
             } else if(tmp.gett1p()) {
@@ -131,7 +132,7 @@ public class Board extends JPanel implements ActionListener {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 //g.drawString("t1", tmp.getX()-20, tmp.getY()-20);
-                g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+",PotentialPp: "+tmp.getPotentialPp()+",Rp: "+tmp.getRp(), tmp.getX()-20, tmp.getY()-20);
+                g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+",Rp: "+tmp.getRp()+",PotentialPp: "+tmp.getPotentialPp(), tmp.getX()-20, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
                 g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
             } else if(tmp.gett2p()) {
@@ -139,7 +140,8 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                g.drawString("t2", tmp.getX()-20, tmp.getY()-20);
+                //g.drawString("t2", tmp.getX()-20, tmp.getY()-20);
+                g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+",Rp: "+tmp.getRp()+",PotentialPp: "+tmp.getPotentialPp(), tmp.getX()-20, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
                 g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
             } else {
@@ -147,7 +149,7 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+",PotentialPp: "+tmp.getPotentialPp()+",Rp: "+tmp.getRp(), tmp.getX()-20, tmp.getY()-20);
+                g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+",Rp: "+tmp.getRp()+",PotentialPp: "+tmp.getPotentialPp(), tmp.getX()-20, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
                 g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
             }
