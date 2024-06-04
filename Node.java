@@ -9,7 +9,7 @@ public class Node {
     private boolean t1p; // ノードpがt1であるか
     private boolean t2p; // ノードpがt2であるか
     private int Pp; // step1.1のBFS木におけるノードpの親ID
-    private int Childp; //step1.1のBFS木におけるノードpの子ID
+    private ArrayList<Integer> Childp; //step1.2以降のBFS木におけるノードpの子リスト
     private boolean ChildOnPp; //Childpが最短経路P上に存在するか
     private int Lp; // ノードpから始点sまでの距離(L距離)
     private boolean OnPp; // ノードpが最短経路P上に存在するか
@@ -37,6 +37,7 @@ public class Node {
         this.t2p = t2p;
         list = new ArrayList<>();
         PotentialPp = new ArrayList<>();
+        Childp = new ArrayList<>();
     }
     
     public ArrayList<Integer> getList() {
@@ -131,6 +132,10 @@ public class Node {
         return y;
     }
 
+    public ArrayList<Integer> getChildp() {
+        return Childp;
+    }
+
     public void setLp(int lp) {
         this.Lp = lp;
     }
@@ -149,6 +154,18 @@ public class Node {
 
     public void setPotentialPp(int b) {
         PotentialPp.add(b);
+    }
+
+    public void setDp(int dp) {
+        this.dp = dp;
+    }
+
+    public void setChildp(int c) {
+        Childp.add(c);
+    }
+
+    public void setParp(int parp) {
+        Parp = parp;
     }
 
     public void removePotentialPp() {
