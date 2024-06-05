@@ -34,7 +34,7 @@ public class Board extends JPanel implements ActionListener {
 
         // constracter
         setFocusable(true);
-        int DELAY = 400;
+        int DELAY = 1500;
         timer = new Timer(DELAY, this);
         timer.start();
         statusbar = parent.getStatusBar();
@@ -110,9 +110,9 @@ public class Board extends JPanel implements ActionListener {
         for (int i = 0; i < tGraph.size(); i++) {
             Node tmp = Nodelist.get(i);
             if(tmp.gets1p()) {
-                g.setColor(Color.BLUE);
+                g.setColor(Color.GREEN);
                 g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
-                g.setColor(Color.GRAY);
+                g.setColor(Color.WHITE);
                 g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
@@ -124,7 +124,7 @@ public class Board extends JPanel implements ActionListener {
             } else if(tmp.gets2p()) {
                 g.setColor(Color.RED);
                 g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
-                g.setColor(Color.GRAY);
+                g.setColor(Color.WHITE);
                 g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
@@ -134,9 +134,9 @@ public class Board extends JPanel implements ActionListener {
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
                 g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
             } else if(tmp.gett1p()) {
-                g.setColor(Color.BLUE);
+                g.setColor(Color.GREEN);
                 g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
-                g.setColor(Color.GRAY);
+                g.setColor(Color.WHITE);
                 g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
@@ -148,7 +148,7 @@ public class Board extends JPanel implements ActionListener {
             } else if(tmp.gett2p()) {
                 g.setColor(Color.RED);
                 g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
-                g.setColor(Color.GRAY);
+                g.setColor(Color.WHITE);
                 g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
@@ -158,7 +158,9 @@ public class Board extends JPanel implements ActionListener {
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
                 g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
             } else {
-                g.setColor(Color.GRAY);
+                g.setColor(Color.BLACK);
+                g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.WHITE);
                 g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));

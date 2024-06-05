@@ -223,44 +223,57 @@ public class Algorithm extends Graph {
         }
         // 親ノードの決定
         for (int i = 0; i < NodeList.size(); i++) {
+            NodeList.get(i).setParp(-1);
             NodeList.get(i).setDefineParp(false);
         }
 
         for (int i = 0; i < NodeList.size(); i++) {
             Node now = NodeList.get(i);
             ArrayList<Integer> nowPotentialList = now.getPotentialPp();
-            // ノードnowのR値が親候補であるP上のノードのL値と等しい場合そのノードを親とする
             for (int j = 0; j < nowPotentialList.size(); j++) {
-                // ノードnowの親候補リスト内のj番目の要素がP上のノードなら
-                if (NodeList.get(nowPotentialList.get(j)).getOnPp()) {
-                    // 該当ノードのL値とノードnowのR値が等しいなら
-                    if (now.getRp() == NodeList.get(nowPotentialList.get(j)).getLp()) {
-                        now.setParp(nowPotentialList.get(j));
-                        NodeList.get(nowPotentialList.get(j)).setChildp(i);
-                        now.setDefineParp(true);
+                if (!nowPotentialList.isEmpty() && !now.getOnPp()) {
+                    if (NodeList.get(nowPotentialList.get(j)).getOnPp()) {
+                        if (now.getRp() == NodeList.get(nowPotentialList.get(j)).getLp()) {
+                            now.setParp(nowPotentialList.get(j));
+                            now.setDefineParp(true);
+                            // NodeList.get(nowPotentialList.get(j)).setChildp(i);
+                        }
                         break;
+                    } else {
+                        now.setdList(NodeList.get(nowPotentialList.get(j)).getdp());
                     }
+                } else if (!nowPotentialList.isEmpty() && now.getOnPp()) {
+                    now.setdList(NodeList.get(nowPotentialList.get(j)).getdp());
                 }
             }
-            // そうでない場合親候補のうちd値が最小のノードを親とし、d値も同じ場合はノードIDが小さい方を親とする
-            for (int j = 0; j < nowPotentialList.size(); j++) {
-                if (!now.getdefineParp()) {
-                    if (nowPotentialList.size() == 1) {
-                        now.setParp(nowPotentialList.get(0));
-                        NodeList.get(nowPotentialList.get(j)).setChildp(i);
-                    } else if(nowPotentialList.size() > 1){
-                        for (int k = 0; k < nowPotentialList.size(); k++) {
-                            now.setdList(NodeList.get(nowPotentialList.get(k)).getdp());
-                        }
-                        Collections.sort(now.getdList());
-                        int min = now.getdList().get(0);
-                        for(int k = 0; k < nowPotentialList.size(); k++) {
-                            if(min == nowPotentialList.get(k)) {
-                                now.setParp(nowPotentialList.get(k));
-                                NodeList.get(nowPotentialList.get(k)).setChildp(i);
+            ArrayList<Integer> nowdList = now.getdList();
+            if (!now.getdefineParp() && !nowdList.isEmpty()) {
+                if (nowdList.size() == 1) {
+                    now.setParp(nowPotentialList.get(0));
+                } else if (nowdList.size() > 1) {
+                    // Collections.sort(nowdList);
+                    int min = Collections.min(nowdList);
+                    for (int j = 0; j < nowPotentialList.size(); j++) {
+                        if (NodeList.get(nowPotentialList.get(j)).getdp() == min) {
+                            if (!now.getdefineParp()) {
+                                now.setParp(nowPotentialList.get(j));
+                                now.setDefineParp(true);
+
                             }
                         }
                     }
+                }
+            }
+        }
+
+        // 子ノードリストの作成
+        // 隣接リストのParpを見て自身のノードIDと一致するならリストに追加する
+        for (int i = 0; i < NodeList.size(); i++) {
+            Node now = NodeList.get(i);
+            ArrayList<Integer> nowList = now.getList();
+            for (int j = 0; j < nowList.size(); j++) {
+                if (NodeList.get(nowList.get(j)).getParp() == i) {
+                    now.setChildp(nowList.get(j));
                 }
             }
         }
@@ -273,6 +286,7 @@ public class Algorithm extends Graph {
 
     // step1.3
     // step1.4
+    // ↓Dデーモン？
     // step2
     // step3
     // step4
