@@ -19,6 +19,8 @@ public class Node {
     private ArrayList<Integer> dList;
     private int dp; // ノードpからpを含む木における根までの距離
     private boolean defineDp; // ノードpのdpが決定されたかどうか
+    private boolean rootp; // ノードpが根ノードかどうか
+    private boolean leafp; // ノードpが葉ノードかどうか
     private int Fp; // 自身を根とする木における葉ノードのLpの最大値
     private ArrayList<Integer> PotentialPp; // ノードpの親となる可能性のあるノードID
     private int Mp; // 探索中のリンクパスPiの終点のL距離
@@ -102,6 +104,14 @@ public class Node {
 
     public boolean getdefineDp() {
         return defineDp;
+    }
+
+    public boolean getrootp() {
+        return rootp;
+    }
+
+    public boolean getleafp() {
+        return leafp;
     }
 
     public ArrayList<Integer> getdList() {
@@ -204,7 +214,23 @@ public class Node {
         ChildList = childList;
     }
 
+    public void setFp(int fp) {
+        Fp = fp;
+    }
+
+    public void setRootp(boolean rootp) {
+        this.rootp = rootp;
+    }
+
+    public void setLeafp(boolean leafp) {
+        this.leafp = leafp;
+    }
+
     public void removePotentialPp() {
         PotentialPp.clear();
+    }
+
+    public void removeChildp() {
+        Childp.clear();
     }
 }

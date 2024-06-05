@@ -269,6 +269,9 @@ public class Algorithm extends Graph {
         // 子ノードリストの作成
         // 隣接リストのParpを見て自身のノードIDと一致するならリストに追加する
         for (int i = 0; i < NodeList.size(); i++) {
+            NodeList.get(i).removeChildp();
+        }
+        for (int i = 0; i < NodeList.size(); i++) {
             Node now = NodeList.get(i);
             ArrayList<Integer> nowList = now.getList();
             for (int j = 0; j < nowList.size(); j++) {
@@ -281,7 +284,60 @@ public class Algorithm extends Graph {
 
     // BFS木の葉ノードにFpを割り当て、P上の根は最大のFを収集
     public void defineFarthestNode() {
-
+        // ノードnowが葉ノード、根ノードであるかの判定
+        for (int i = 0; i < NodeList.size(); i++) {
+            Node now = NodeList.get(i);
+            if (now.getOnPp()) {
+                if (now.getPotentialPp().isEmpty()) {
+                    now.setLeafp(false);
+                } else {
+                    now.setLeafp(true);
+                }
+                if (now.getChildp().isEmpty()) {
+                    now.setRootp(false);
+                } else {
+                    now.setRootp(true);
+                }
+            } else {
+                now.setRootp(false);
+                if (now.getChildp().isEmpty()) {
+                    now.setLeafp(true);
+                } else {
+                    now.setLeafp(false);
+                }
+            }
+        }
+        // 全てのノードのF値に-2を割り当てる
+        for (int i = 0; i < NodeList.size(); i++) {
+            NodeList.get(i).setFp(-2);
+        }
+        // 根ではなく葉であるノードはP上ならL値をそうでないなら-1をF値に割り当てる
+        for (int i = 0; i < NodeList.size(); i++) {
+            Node now = NodeList.get(i);
+            if (!now.getrootp() && now.getleafp()) {
+                if (now.getOnPp()) {
+                    now.setFp(now.getLp());
+                } else {
+                    now.setFp(-1);
+                }
+            }
+        }
+        // 葉ノードのF値を根ノードまで伝搬する
+        boolean fupdate = true;
+        while (fupdate) {
+            fupdate = false;
+            for (int i = 0; i < NodeList.size(); i++) {
+                Node now = NodeList.get(i);
+                if (now.getParp() != -1) {
+                    if (now.getFp() != -2) {
+                        if (now.getFp() > NodeList.get(now.getParp()).getFp()) {
+                            NodeList.get(now.getParp()).setFp(now.getFp());
+                            fupdate = true;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // step1.3
