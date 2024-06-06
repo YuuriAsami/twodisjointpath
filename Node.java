@@ -28,6 +28,10 @@ public class Node {
     private int NMp; // 次に探索するリンクパスPi+1の終点のL距離
     private boolean Existp; // ノードsp間に２本の点素パスが存在するか
     private boolean Markedp; // ノードpがリンクパスの終点であるか
+    private int sp1;
+    private int sp2;
+    private ArrayList<Integer> Parentp; // 点内素パス上における親ノード
+    private ArrayList<Integer> Childrenp; // 点内素パス上における子ノード
     private int PredPp; //最短経路P上のノードpの親ID
     private int SucPp; //最短経路P上のノードpの子ID
     private int x; // ノードのx座標
@@ -45,6 +49,8 @@ public class Node {
         PotentialPp = new ArrayList<>();
         Childp = new ArrayList<>();
         dList = new ArrayList<>();
+        Parentp = new ArrayList<>();
+        Childrenp = new ArrayList<>();
     }
     
     public ArrayList<Integer> getList() {
@@ -163,12 +169,28 @@ public class Node {
         return y;
     }
 
+    public int getsp1() {
+        return sp1;
+    }
+
+    public int getsp2() {
+        return sp2;
+    }
+
     public ArrayList<Integer> getChildp() {
         return Childp;
     }
 
     public boolean getChildList() {
         return ChildList;
+    }
+
+    public ArrayList<Integer> getParentp() {
+        return Parentp;
+    }
+
+    public ArrayList<Integer> getChildrenp() {
+        return Childrenp;
     }
 
     public void setLp(int lp) {
@@ -249,6 +271,22 @@ public class Node {
 
     public void setExistp(boolean existp) {
         Existp = existp;
+    }
+
+    public void setParentp(int p) {
+        Parentp.add(p);
+    }
+
+    public void setChildrenp(int q) {
+        Childrenp.add(q);
+    }
+
+    public void setSp1(int sp1) {
+        this.sp1 = sp1;
+    }
+
+    public void setSp2(int sp2) {
+        this.sp2 = sp2;
     }
 
     public void removePotentialPp() {

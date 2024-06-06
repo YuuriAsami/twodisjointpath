@@ -440,6 +440,48 @@ public class Algorithm extends Graph {
         now.setExistp(Pnow.getExistp());
     }
     // step1.4
+    //2本の点内素パスの構築
+    public void constructionTwoDisjointPath() {
+        int i;
+        for (i = 0; i < NodeList.size(); i++) {
+            if (NodeList.get(i).gett1p())
+                break;
+        }
+        if(NodeList.get(i).getExistp()) {
+            NodeList.get(i).setSp1(NodeList.get(i).getParp());
+            NodeList.get(i).setSp2(NodeList.get(i).getPp());
+            Node s1 = NodeList.get(NodeList.get(i).getParp());
+            Node s2 = NodeList.get(NodeList.get(i).getPp());
+            while(!s1.gets1p()) {
+                if(s1.getOnPp()) {
+                    if(s1.getMarkedp()) {
+                        s1.setSp1(s1.getParp());
+                        s1 = NodeList.get(s1.getParp());
+                    } else {
+                        s1.setSp1(s1.getPp());
+                        s1 = NodeList.get(s1.getPp());
+                    }
+                } else {
+                    s1.setSp1(s1.getParp());
+                    s1 = NodeList.get(s1.getParp());
+                }
+            }
+            while(!s2.gets1p()) {
+                if(s2.getOnPp()) {
+                    if(s1.getMarkedp()) {
+                        s2.setSp1(s2.getParp());
+                        s2 = NodeList.get(s2.getParp());
+                    } else {
+                        s2.setSp1(s2.getPp());
+                        s2 = NodeList.get(s2.getPp());
+                    }
+                } else {
+                    s2.setSp1(s2.getParp());
+                    s2 = NodeList.get(s2.getParp());
+                }
+            }
+        }
+    }
     // ↓Dデーモン？
     // step2
     // step3
