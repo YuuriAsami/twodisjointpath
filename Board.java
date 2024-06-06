@@ -52,6 +52,7 @@ public class Board extends JPanel implements ActionListener {
          tGraph.defineParPp();
          tGraph.defineFarthestNode();
          tGraph.defineTerminusLinkPath();
+         tGraph.constructionTwoDisjointPath();
         repaint();
     }
 
