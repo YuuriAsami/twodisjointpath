@@ -383,6 +383,22 @@ public class Algorithm extends Graph {
             now = NodeList.get(now.getCp());
             Pnow = NodeList.get(now.getPp());
         }
+        if (now.getFp() == Pnow.getMp()) {
+            now.setMarkedp(true);
+        } else {
+            now.setMarkedp(false);
+        }
+        if (now.getMarkedp()) {
+            now.setMp(Pnow.getNMp());
+            now.setNMp(now.getMp());
+        } else {
+            now.setMp(Pnow.getMp());
+            if (Pnow.getNMp() < now.getFp()) {
+                now.setNMp(now.getFp());
+            } else {
+                now.setNMp(Pnow.getNMp());
+            }
+        }
     }
     // step1.4
     // ↓Dデーモン？
