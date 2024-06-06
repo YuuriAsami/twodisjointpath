@@ -328,13 +328,11 @@ public class Algorithm extends Graph {
             fupdate = false;
             for (int i = 0; i < NodeList.size(); i++) {
                 Node now = NodeList.get(i);
-                if (now.getParp() != -1) {
-                    if (now.getFp() != -2) {
+                if (now.getParp() != -1 && now.getFp() != -2) {
                         if (now.getFp() > NodeList.get(now.getParp()).getFp()) {
                             NodeList.get(now.getParp()).setFp(now.getFp());
                             fupdate = true;
                         }
-                    }
                 }
             }
         }
