@@ -247,6 +247,10 @@ public class Node {
         Markedp = markedp;
     }
 
+    public void setExistp(boolean existp) {
+        Existp = existp;
+    }
+
     public void removePotentialPp() {
         PotentialPp.clear();
     }

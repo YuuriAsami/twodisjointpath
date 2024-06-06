@@ -354,15 +354,8 @@ public class Algorithm extends Graph {
         int j;
         Node now = NodeList.get(i);
         Node Pnow = NodeList.get(i);
-        for (j = 0; j < NodeList.size(); j++) {
-            if (NodeList.get(j).getOnPp()) {
-                if (NodeList.get(j).getPp() == i) {
-                    now = NodeList.get(j);
-                    Pnow = NodeList.get(now.getPp());
-                    break;
-                }
-            }
-        }
+        now = NodeList.get(now.getCp());
+        Pnow = NodeList.get(now.getPp());
         while (!now.gett1p()) {
             if (now.getFp() == Pnow.getMp()) {
                 now.setMarkedp(true);
@@ -399,6 +392,52 @@ public class Algorithm extends Graph {
                 now.setNMp(Pnow.getNMp());
             }
         }
+
+        // st間に2本の点内素パスが存在するかの判定
+        int k;
+        for (k = 0; k < NodeList.size(); k++) {
+            if (NodeList.get(k).gets1p())
+                break;
+        }
+        if (NodeList.get(k).getFp() != NodeList.get(k).getLp()) {
+            if (!NodeList.get(NodeList.get(k).getCp()).getMarkedp()) {
+                NodeList.get(k).setExistp(true);
+            }
+        }
+        now = NodeList.get(NodeList.get(k).getCp());
+        Pnow = NodeList.get(now.getPp());
+        while (!now.gett1p()) {
+            if (!Pnow.getMarkedp()) {
+                now.setExistp(Pnow.getExistp());
+            } else {
+                if (!Pnow.getExistp()) {
+                    now.setExistp(Pnow.getExistp());
+                } else {
+                    boolean ExistNW = false;
+                    Node NW = NodeList.get(now.getCp());
+                    for (int l = 0; l < NodeList.size(); l++) {
+                        if (NW.getMarkedp()) {
+                            ExistNW = true;
+                            break;
+                        } else {
+                            NW = NodeList.get(NW.getCp());
+                        }
+                    }
+                    if (ExistNW) {
+                        if (NW.getMp() > now.getLp()) {
+                            now.setExistp(Pnow.getExistp());
+                        } else {
+                            now.setExistp(false);
+                        }
+                    } else {
+                        now.setExistp(false);
+                    }
+                }
+            }
+            now = NodeList.get(now.getCp());
+            Pnow = NodeList.get(now.getPp());
+        }
+        now.setExistp(Pnow.getExistp());
     }
     // step1.4
     // ↓Dデーモン？
