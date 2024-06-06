@@ -61,7 +61,9 @@ public class Algorithm extends Graph {
         }
         while (!NodeList.get(i).gets1p()) {
             NodeList.get(i).setOnPp(true);
+            int id = NodeList.get(i).getId();
             i = NodeList.get(i).getPp();
+            NodeList.get(i).setCp(id);
         }
 
         NodeList.get(i).setOnPp(true);
@@ -329,16 +331,59 @@ public class Algorithm extends Graph {
             for (int i = 0; i < NodeList.size(); i++) {
                 Node now = NodeList.get(i);
                 if (now.getParp() != -1 && now.getFp() != -2) {
-                        if (now.getFp() > NodeList.get(now.getParp()).getFp()) {
-                            NodeList.get(now.getParp()).setFp(now.getFp());
-                            fupdate = true;
-                        }
+                    if (now.getFp() > NodeList.get(now.getParp()).getFp()) {
+                        NodeList.get(now.getParp()).setFp(now.getFp());
+                        fupdate = true;
+                    }
                 }
             }
         }
     }
 
     // step1.3
+    // リンクパスの終点を特定
+    public void defineTerminusLinkPath() {
+        int i;
+        for (i = 0; i < NodeList.size(); i++) {
+            if (NodeList.get(i).gets1p()) {
+                NodeList.get(i).setMp(NodeList.get(i).getFp());
+                NodeList.get(i).setNMp(NodeList.get(i).getFp());
+                break;
+            }
+        }
+        int j;
+        Node now = NodeList.get(i);
+        Node Pnow = NodeList.get(i);
+        for (j = 0; j < NodeList.size(); j++) {
+            if (NodeList.get(j).getOnPp()) {
+                if (NodeList.get(j).getPp() == i) {
+                    now = NodeList.get(j);
+                    Pnow = NodeList.get(now.getPp());
+                    break;
+                }
+            }
+        }
+        while (!now.gett1p()) {
+            if (now.getFp() == Pnow.getMp()) {
+                now.setMarkedp(true);
+            } else {
+                now.setMarkedp(false);
+            }
+            if (now.getMarkedp()) {
+                now.setMp(Pnow.getNMp());
+                now.setNMp(now.getMp());
+            } else {
+                now.setMp(Pnow.getMp());
+                if (Pnow.getNMp() < now.getFp()) {
+                    now.setNMp(now.getFp());
+                } else {
+                    now.setNMp(Pnow.getNMp());
+                }
+            }
+            now = NodeList.get(now.getCp());
+            Pnow = NodeList.get(now.getPp());
+        }
+    }
     // step1.4
     // ↓Dデーモン？
     // step2

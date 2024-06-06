@@ -9,6 +9,7 @@ public class Node {
     private boolean t1p; // ノードpがt1であるか
     private boolean t2p; // ノードpがt2であるか
     private int Pp; // step1.1のBFS木におけるノードpの親ID
+    private int Cp; // P上のノードの子ID
     private ArrayList<Integer> Childp; //step1.2以降のBFS木におけるノードpの子リスト
     private boolean ChildList; //子ノードリストが確定したか
     private int Lp; // ノードpから始点sまでの距離(L距離)
@@ -78,6 +79,10 @@ public class Node {
         return Pp;
     }
 
+    public int getCp() {
+        return Cp;
+    }
+
     public int getLp() {
         return Lp;
     }
@@ -130,7 +135,7 @@ public class Node {
         return Mp;
     }
 
-    public int NMp() {
+    public int getNMp() {
         return NMp;
     }
 
@@ -172,6 +177,10 @@ public class Node {
 
     public void setPp(int pp) {
         Pp = pp;
+    }
+
+    public void setCp(int cp) {
+        Cp = cp;
     }
 
     public void setOnPp(boolean onpp) {
@@ -224,6 +233,18 @@ public class Node {
 
     public void setLeafp(boolean leafp) {
         this.leafp = leafp;
+    }
+
+    public void setMp(int mp) {
+        Mp = mp;
+    }
+
+    public void setNMp(int nMp) {
+        NMp = nMp;
+    }
+
+    public void setMarkedp(boolean markedp) {
+        Markedp = markedp;
     }
 
     public void removePotentialPp() {
