@@ -351,7 +351,6 @@ public class Algorithm extends Graph {
                 break;
             }
         }
-        int j;
         Node now = NodeList.get(i);
         Node Pnow = NodeList.get(i);
         now = NodeList.get(now.getCp());
@@ -468,7 +467,7 @@ public class Algorithm extends Graph {
             }
             while(!s2.gets1p()) {
                 if(s2.getOnPp()) {
-                    if(s1.getMarkedp()) {
+                    if(s2.getMarkedp()) {
                         s2.setSp1(s2.getParp());
                         s2 = NodeList.get(s2.getParp());
                     } else {

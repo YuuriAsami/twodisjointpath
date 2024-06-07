@@ -100,8 +100,8 @@ public class Board extends JPanel implements ActionListener {
             for (int j = 0; j < line.size(); j++) {
                 if(tmp.getOnPp()){
                     g.setColor(Color.RED);
-                    g.drawLine(tmp.getX()+10, tmp.getY()+10,
-                        Nodelist.get(line.get(j)).getX()+10, Nodelist.get(line.get(j)).getY()+10);
+                    g.drawLine(tmp.getX(), tmp.getY(),
+                        Nodelist.get(line.get(j)).getX(), Nodelist.get(line.get(j)).getY());
                 }else{
                     g.setColor(Color.BLACK);
                     g.drawLine(tmp.getX(), tmp.getY(),
@@ -176,7 +176,7 @@ public class Board extends JPanel implements ActionListener {
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.getCp()+",Rp: "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp: "+tmp.getFp(), tmp.getX()-50, tmp.getY()-50);
                 // g.drawString("PotentialPp: "+tmp.getPotentialPp()+",Childp: "+tmp.getChildp()+",Mp: "+tmp.getMp()+"NMp: "+tmp.getNMp(), tmp.getX()-50, tmp.getY()-35);
-                // g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.getleafp()+",Marked: "+tmp.getMarkedp()+",Existp: "+tmp.getExistp(), tmp.getX()-50, tmp.getY()-20);
+                 g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.getleafp()+",Marked: "+tmp.getMarkedp()+",Existp: "+tmp.getExistp(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString("sp1: "+tmp.getsp1(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
                 g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
