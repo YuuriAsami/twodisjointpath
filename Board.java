@@ -25,6 +25,7 @@ public class Board extends JPanel implements ActionListener {
 
     private int point;
     private Algorithm tGraph;
+    private Algorithm2 sGraph;
 
     public Board(tester parent) {
         initBoard(parent);
@@ -41,6 +42,7 @@ public class Board extends JPanel implements ActionListener {
         addKeyListener(new TAdapter());
 
         tGraph = new Algorithm();
+        sGraph = new Algorithm2();
     }
 
     @Override
@@ -53,6 +55,13 @@ public class Board extends JPanel implements ActionListener {
          tGraph.defineFarthestNode();
          tGraph.defineTerminusLinkPath();
          tGraph.constructionTwoDisjointPath();
+         sGraph.tBFS();
+         sGraph.tdefineMainRoute();
+         sGraph.tdefinePotentialPp();
+         sGraph.tdefineParPp();
+         sGraph.tdefineFarthestNode();
+         sGraph.tdefineTerminusLinkPath();
+         sGraph.tconstructionTwoDisjointPath();
         repaint();
     }
 
@@ -98,10 +107,10 @@ public class Board extends JPanel implements ActionListener {
             Node tmp = Nodelist.get(i);
             ArrayList<Integer> line = tmp.getList();
             for (int j = 0; j < line.size(); j++) {
-                if(tmp.getOnPp()){
+                if(tmp.gettOnPp()){
                     g.setColor(Color.RED);
-                    g.drawLine(tmp.getX(), tmp.getY(),
-                        Nodelist.get(line.get(j)).getX(), Nodelist.get(line.get(j)).getY());
+                    g.drawLine(tmp.getX()+10, tmp.getY()+10,
+                        Nodelist.get(line.get(j)).getX()+10, Nodelist.get(line.get(j)).getY()+10);
                 }else{
                     g.setColor(Color.BLACK);
                     g.drawLine(tmp.getX(), tmp.getY(),
@@ -123,6 +132,7 @@ public class Board extends JPanel implements ActionListener {
                 // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.getCp()+",Rp: "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp: "+tmp.getFp(), tmp.getX()-50, tmp.getY()-50);
                 // g.drawString("PotentialPp: "+tmp.getPotentialPp()+",Childp: "+tmp.getChildp()+",Mp: "+tmp.getMp()+"NMp: "+tmp.getNMp(), tmp.getX()-50, tmp.getY()-35);
                 // g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.getleafp()+",Marked: "+tmp.getMarkedp()+",Existp: "+tmp.getExistp(), tmp.getX()-50, tmp.getY()-20);
+                //g.drawString("sp1: "+tmp.getsp1(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
                 g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
             } else if(tmp.gets2p()) {
@@ -133,12 +143,12 @@ public class Board extends JPanel implements ActionListener {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 //g.drawString("s2", tmp.getX()-20, tmp.getY()-20);
-                // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.getCp()+",Rp: "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp: "+tmp.getFp(), tmp.getX()-50, tmp.getY()-50);
-                // g.drawString("PotentialPp: "+tmp.getPotentialPp()+",Childp: "+tmp.getChildp()+",Mp: "+tmp.getMp()+"NMp: "+tmp.getNMp(), tmp.getX()-50, tmp.getY()-35);
-                // g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.getleafp()+",Marked: "+tmp.getMarkedp()+",Existp: "+tmp.getExistp(), tmp.getX()-50, tmp.getY()-20);
+                // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp()+",Marked: "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString("sp1: "+tmp.getsp1(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
-                g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
             } else if(tmp.gett1p()) {
                 g.setColor(Color.GREEN);
                 g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
@@ -147,12 +157,12 @@ public class Board extends JPanel implements ActionListener {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 //g.drawString("t1", tmp.getX()-20, tmp.getY()-20);
-                // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.getCp()+",Rp: "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp: "+tmp.getFp(), tmp.getX()-50, tmp.getY()-50);
-                // g.drawString("PotentialPp: "+tmp.getPotentialPp()+",Childp: "+tmp.getChildp()+",Mp: "+tmp.getMp()+"NMp: "+tmp.getNMp(), tmp.getX()-50, tmp.getY()-35);
-                // g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.getleafp()+",Marked: "+tmp.getMarkedp()+",Existp: "+tmp.getExistp(), tmp.getX()-50, tmp.getY()-20);
-                g.drawString("sp1: "+tmp.getsp1()+"sp2: "+tmp.getsp2(), tmp.getX()-50, tmp.getY()-20);
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp()+",Marked: "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
+                g.drawString("sp1: "+tmp.getsp1()+",sp2: "+tmp.getsp2(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
-                g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
             } else if(tmp.gett2p()) {
                 g.setColor(Color.RED);
                 g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
@@ -161,25 +171,25 @@ public class Board extends JPanel implements ActionListener {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 //g.drawString("t2", tmp.getX()-20, tmp.getY()-20);
-                // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.getCp()+",Rp: "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp: "+tmp.getFp(), tmp.getX()-50, tmp.getY()-50);
-                // g.drawString("PotentialPp: "+tmp.getPotentialPp()+",Childp: "+tmp.getChildp()+",Mp: "+tmp.getMp()+"NMp: "+tmp.getNMp(), tmp.getX()-50, tmp.getY()-35);
-                // g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.getleafp()+",Marked: "+tmp.getMarkedp()+",Existp: "+tmp.getExistp(), tmp.getX()-50, tmp.getY()-20);
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp()+",Marked: "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString("sp1: "+tmp.getsp1(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
-                g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
-            } else if(tmp.getOnPp()){
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
+            } else if(tmp.gettOnPp()){
                 g.setColor(Color.BLACK);
                 g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.WHITE);
                 g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.getCp()+",Rp: "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp: "+tmp.getFp(), tmp.getX()-50, tmp.getY()-50);
-                // g.drawString("PotentialPp: "+tmp.getPotentialPp()+",Childp: "+tmp.getChildp()+",Mp: "+tmp.getMp()+"NMp: "+tmp.getNMp(), tmp.getX()-50, tmp.getY()-35);
-                 g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.getleafp()+",Marked: "+tmp.getMarkedp()+",Existp: "+tmp.getExistp(), tmp.getX()-50, tmp.getY()-20);
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.gettleafp()+",Marked: "+tmp.getMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString("sp1: "+tmp.getsp1(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
-                g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
             } else {
                 g.setColor(Color.BLACK);
                 g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
@@ -187,12 +197,115 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.getCp()+",Rp: "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp: "+tmp.getFp(), tmp.getX()-50, tmp.getY()-50);
-                // g.drawString("PotentialPp: "+tmp.getPotentialPp()+",Childp: "+tmp.getChildp(), tmp.getX()-50, tmp.getY()-35);
-                // g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.getleafp(), tmp.getX()-50, tmp.getY()-20);
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString("sp1: "+tmp.getsp1(), tmp.getX()-50, tmp.getY()-20);
                 g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
-                g.drawString(""+tmp.getOnPp(), tmp.getX()+20, tmp.getY()+20);
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
+            }
+        }
+        ArrayList<Node> tNodelist = sGraph.getNodeList();
+        for (int i = 0; i < sGraph.size(); i++) {
+            Node tmp = tNodelist.get(i);
+            ArrayList<Integer> line = tmp.getList();
+            for (int j = 0; j < line.size(); j++) {
+                if(tmp.gettOnPp()){
+                    g.setColor(Color.BLUE);
+                    g.drawLine(tmp.getX()+10, tmp.getY()+10,
+                        tNodelist.get(line.get(j)).getX()+10, tNodelist.get(line.get(j)).getY()+10);
+                }else{
+                    g.setColor(Color.BLACK);
+                    g.drawLine(tmp.getX(), tmp.getY(),
+                            tNodelist.get(line.get(j)).getX(), tNodelist.get(line.get(j)).getY());
+                }
+               
+            }
+        }
+        for (int i = 0; i < sGraph.size(); i++) {
+            Node tmp = tNodelist.get(i);
+            if(tmp.gets1p()) {
+                g.setColor(Color.GREEN);
+                g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.WHITE);
+                g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Helvetica", Font.PLAIN, 13));
+                //g.drawString("s1", tmp.getX()-20, tmp.getY()-20);
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.getChildp()+",Mp: "+tmp.getMp()+"NMp: "+tmp.getNMp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp()+",Marked: "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
+                g.drawString("tp1: "+tmp.gettsp1(), tmp.getX()-50, tmp.getY()-35);
+                g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
+            } else if(tmp.gets2p()) {
+                g.setColor(Color.RED);
+                g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.WHITE);
+                g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Helvetica", Font.PLAIN, 13));
+                //g.drawString("s2", tmp.getX()-20, tmp.getY()-20);
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp()+",Marked: "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
+                //g.drawString("sp1: "+tmp.getsp1(), tmp.getX()-50, tmp.getY()-35);
+                g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
+            } else if(tmp.gett1p()) {
+                g.setColor(Color.GREEN);
+                g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.WHITE);
+                g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Helvetica", Font.PLAIN, 13));
+                //g.drawString("t1", tmp.getX()-20, tmp.getY()-20);
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp()+",Marked: "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
+                g.drawString("tp1: "+tmp.gettsp1(), tmp.getX()-50, tmp.getY()-35);
+                g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
+            } else if(tmp.gett2p()) {
+                g.setColor(Color.RED);
+                g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.WHITE);
+                g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Helvetica", Font.PLAIN, 13));
+                //g.drawString("t2", tmp.getX()-20, tmp.getY()-20);
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp()+",Marked: "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
+                g.drawString(",tp1: "+tmp.gettsp1()+",tp2: "+tmp.gettsp2(), tmp.getX()-50, tmp.getY()-35);
+                g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
+            } else if(tmp.gettOnPp()){
+                g.setColor(Color.BLACK);
+                g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.WHITE);
+                g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Helvetica", Font.PLAIN, 13));
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.gettleafp()+",Marked: "+tmp.getMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
+                g.drawString("tp1: "+tmp.gettsp1(), tmp.getX()-50, tmp.getY()-35);
+                g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
+            } else {
+                g.setColor(Color.BLACK);
+                g.drawOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.WHITE);
+                g.fillOval(tmp.getX()-20, tmp.getY()-20, 40, 40);
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Helvetica", Font.PLAIN, 13));
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp: "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp: "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
+                // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp(), tmp.getX()-50, tmp.getY()-35);
+                // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp(), tmp.getX()-50, tmp.getY()-20);
+                g.drawString("tp1: "+tmp.gettsp1(), tmp.getX()-50, tmp.getY()-35);
+                g.drawString(""+tmp.getId(), tmp.getX(), tmp.getY());
+                g.drawString(""+tmp.gettOnPp(), tmp.getX()+20, tmp.getY()+20);
             }
         }
     }

@@ -1,3 +1,4 @@
+
 //import java.util.*;
 import java.util.ArrayList;
 
@@ -10,8 +11,8 @@ public class Node {
     private boolean t2p; // ノードpがt2であるか
     private int Pp; // step1.1のBFS木におけるノードpの親ID
     private int Cp; // P上のノードの子ID
-    private ArrayList<Integer> Childp; //step1.2以降のBFS木におけるノードpの子リスト
-    private boolean ChildList; //子ノードリストが確定したか
+    private ArrayList<Integer> Childp; // step1.2以降のBFS木におけるノードpの子リスト
+    private boolean ChildList; // 子ノードリストが確定したか
     private int Lp; // ノードpから始点sまでの距離(L距離)
     private boolean OnPp; // ノードpが最短経路P上に存在するか
     private int Rp; // ノードpを含んでいる木における根のL距離
@@ -32,8 +33,30 @@ public class Node {
     private int sp2;
     private ArrayList<Integer> Parentp; // 点内素パス上における親ノード
     private ArrayList<Integer> Childrenp; // 点内素パス上における子ノード
-    private int PredPp; //最短経路P上のノードpの親ID
-    private int SucPp; //最短経路P上のノードpの子ID
+    private int tPp; // step1.1のBFS木におけるノードpの親ID
+    private int tCp; // P上のノードの子ID
+    private ArrayList<Integer> tChildp; // step1.2以降のBFS木におけるノードpの子リスト
+    private boolean tChildList; // 子ノードリストが確定したか
+    private int tLp; // ノードpから始点sまでの距離(L距離)
+    private boolean tOnPp; // ノードpが最短経路P上に存在するか
+    private int tRp; // ノードpを含んでいる木における根のL距離
+    private int tParp; // step1.2以降のBFS木におけるノードpの親ID
+    private boolean tdefineParp; // step1.2以降のBFS木におけるノードpの親が決まったか
+    private ArrayList<Integer> tdList;
+    private int tdp; // ノードpからpを含む木における根までの距離
+    private boolean tdefineDp; // ノードpのdpが決定されたかどうか
+    private boolean trootp; // ノードpが根ノードかどうか
+    private boolean tleafp; // ノードpが葉ノードかどうか
+    private int tFp; // 自身を根とする木における葉ノードのLpの最大値
+    private ArrayList<Integer> tPotentialPp; // ノードpの親となる可能性のあるノードID
+    private int tMp; // 探索中のリンクパスPiの終点のL距離
+    private int tNMp; // 次に探索するリンクパスPi+1の終点のL距離
+    private boolean tExistp; // ノードsp間に２本の点素パスが存在するか
+    private boolean tMarkedp; // ノードpがリンクパスの終点であるか
+    private int tsp1;
+    private int tsp2;
+    private ArrayList<Integer> tParentp; // 点内素パス上における親ノード
+    private ArrayList<Integer> tChildrenp; // 点内素パス上における子ノード
     private int x; // ノードのx座標
     private int y; // ノードのy座標
 
@@ -51,13 +74,19 @@ public class Node {
         dList = new ArrayList<>();
         Parentp = new ArrayList<>();
         Childrenp = new ArrayList<>();
+        tChildp = new ArrayList<>();
+        tdList = new ArrayList<>();
+        tPotentialPp = new ArrayList<>();
+        tParentp = new ArrayList<>();
+        tChildrenp = new ArrayList<>();
     }
-    
+
+    // get
     public ArrayList<Integer> getList() {
         return list;
     }
 
-    public void setList(int a){
+    public void setList(int a) {
         list.add(a);
     }
 
@@ -153,14 +182,6 @@ public class Node {
         return Markedp;
     }
 
-    public int getPredPp() {
-        return PredPp;
-    }
-
-    public int getSucPp() {
-        return SucPp;
-    }
-
     public int getX() {
         return x;
     }
@@ -193,6 +214,95 @@ public class Node {
         return Childrenp;
     }
 
+    public int gettPp() {
+        return tPp;
+    }
+
+    public int gettCp() {
+        return tCp;
+    }
+
+    public ArrayList<Integer> gettChildp() {
+        return tChildp;
+    }
+
+    public boolean gettChildList() {
+        return tChildList;
+    }
+
+    public int gettLp() {
+        return tLp;
+    }
+
+    public boolean gettOnPp() {
+        return tOnPp;
+    }
+
+    public int gettRp() {
+        return tRp;
+    }
+
+    public int gettParp() {
+        return tParp;
+    }
+
+    public boolean gettdefineParp() {
+        return tdefineParp;
+    }
+
+    public ArrayList<Integer> gettdList() {
+        return tdList;
+    }
+
+    public int gettdp() {
+        return tdp;
+    }
+
+    public boolean gettdefineDp() {
+        return tdefineDp;
+    }
+
+    public boolean gettrootp() {
+        return trootp;
+    }
+
+    public boolean gettleafp() {
+        return tleafp;
+    }
+
+    public int gettFp() {
+        return tFp;
+    }
+
+    public ArrayList<Integer> gettPotentialPp() {
+        return tPotentialPp;
+    }
+
+    public int gettMp() {
+        return tMp;
+    }
+
+    public int gettNMp() {
+        return tNMp;
+    }
+
+    public boolean gettExistp() {
+        return tExistp;
+    }
+
+    public boolean gettMarkedp() {
+        return tMarkedp;
+    }
+
+    public int gettsp1() {
+        return tsp1;
+    }
+
+    public int gettsp2() {
+        return tsp2;
+    }
+
+    // set
     public void setLp(int lp) {
         this.Lp = lp;
     }
@@ -289,11 +399,108 @@ public class Node {
         this.sp2 = sp2;
     }
 
+    public void settPp(int tPp) {
+        this.tPp = tPp;
+    }
+
+    public void settCp(int tCp) {
+        this.tCp = tCp;
+    }
+
+    public void settChildp(int tc) {
+        tChildp.add(tc);
+    }
+
+    public void settChildList(boolean tChildList) {
+        this.tChildList = tChildList;
+    }
+
+    public void settLp(int tLp) {
+        this.tLp = tLp;
+    }
+
+    public void settOnPp(boolean tOnPp) {
+        this.tOnPp = tOnPp;
+    }
+
+    public void settRp(int tRp) {
+        this.tRp = tRp;
+    }
+
+    public void settParp(int tParp) {
+        this.tParp = tParp;
+    }
+
+    public void settdefineParp(boolean tdefineParp) {
+        this.tdefineParp = tdefineParp;
+    }
+
+    public void settdList(int tdl) {
+        tdList.add(tdl);
+    }
+
+    public void settdp(int tdp) {
+        this.tdp = tdp;
+    }
+
+    public void settdefineDp(boolean tdefineDp) {
+        this.tdefineDp = tdefineDp;
+    }
+
+    public void settrootp(boolean trootp) {
+        this.trootp = trootp;
+    }
+
+    public void settleafp(boolean tleafp) {
+        this.tleafp = tleafp;
+    }
+
+    public void settFp(int tFp) {
+        this.tFp = tFp;
+    }
+
+    public void settPotentialPp(int tpp) {
+        tPotentialPp.add(tpp);
+    }
+
+    public void settMp(int tMp) {
+        this.tMp = tMp;
+    }
+
+    public void settNMp(int tNMp) {
+        this.tNMp = tNMp;
+    }
+
+    public void settExistp(boolean tExistp) {
+        this.tExistp = tExistp;
+    }
+
+    public void settMarkedp(boolean tMarkedp) {
+        this.tMarkedp = tMarkedp;
+    }
+
+    public void settsp1(int tsp1) {
+        this.tsp1 = tsp1;
+    }
+
+    public void settsp2(int tsp2) {
+        this.tsp2 = tsp2;
+    }
+
+    //remove
     public void removePotentialPp() {
         PotentialPp.clear();
     }
 
     public void removeChildp() {
         Childp.clear();
+    }
+
+    public void removetPotentialPp() {
+        tPotentialPp.clear();
+    }
+
+    public void removetChildp() {
+        tChildp.clear();
     }
 }

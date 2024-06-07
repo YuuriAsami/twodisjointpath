@@ -1,15 +1,6 @@
 import org.w3c.dom.NodeList;
 import java.util.*;
 
-// class bfs {
-// int depth;
-// ArrayList<Integer> list;
-
-// bfs(int d, ArrayList<Integer> l) {
-// d = getLp();
-// l = getList();
-// }
-// }
 public class Algorithm extends Graph {
 
     public Algorithm() {
@@ -48,7 +39,6 @@ public class Algorithm extends Graph {
                 }
             }
         }
-
     }
 
     // ノードt1にtrueを割り当て親に伝搬させていく
