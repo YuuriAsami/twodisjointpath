@@ -57,6 +57,16 @@ public class Node {
     private int tsp2;
     private ArrayList<Integer> tParentp; // 点内素パス上における親ノード
     private ArrayList<Integer> tChildrenp; // 点内素パス上における子ノード
+    private ArrayList<Integer> P1SuccID;
+    private ArrayList<Integer> P2SuccID;
+    private int toP1CandID;
+    private int toP2CandID;
+    private int toP1ID;
+    private int toP2ID;
+    private int mvar;
+    private int mvar1;
+    private int mvar2;
+    private int rvar;
     private int x; // ノードのx座標
     private int y; // ノードのy座標
 
@@ -79,6 +89,11 @@ public class Node {
         tPotentialPp = new ArrayList<>();
         tParentp = new ArrayList<>();
         tChildrenp = new ArrayList<>();
+        P1SuccID = new ArrayList<>();
+        P2SuccID = new ArrayList<>();
+        //q = new ArrayList<>();
+        //toP1CandID = new ArrayList<>();
+        //toP2CandID = new ArrayList<>();
     }
 
     // get
@@ -302,6 +317,54 @@ public class Node {
         return tsp2;
     }
 
+    public ArrayList<Integer> getP1SuccID() {
+        return P1SuccID;
+    }
+
+    public ArrayList<Integer> getP2SuccID() {
+        return P2SuccID;
+    }
+
+    public int getp1SuccID() {
+        return P1SuccID.get(0);
+    }
+
+    public int getp2SuccID(int i) {
+        return P2SuccID.get(i);
+    }
+
+    public int getP1CandID() {
+        return toP1CandID;
+    }
+
+    public int getP2CandID() {
+        return toP2CandID;
+    }
+
+    public int getMvar() {
+        return mvar;
+    }
+
+    public int getMvar1() {
+        return mvar1;
+    }
+
+    public int getMvar2() {
+        return mvar2;
+    }
+
+    public int getRvar() {
+        return rvar;
+    }
+
+    public int getToP1ID() {
+        return toP1ID;
+    }
+
+    public int getToP2ID() {
+        return toP2ID;
+    }
+
     // set
     public void setLp(int lp) {
         this.Lp = lp;
@@ -485,6 +548,45 @@ public class Node {
 
     public void settsp2(int tsp2) {
         this.tsp2 = tsp2;
+    }
+
+    public void setP1SuccID(int i, int p1SuccID) {
+        P1SuccID.add(i,p1SuccID);
+    }
+
+    public void setP2SuccID(int j, int p2SuccID) {
+        P2SuccID.add(j,p2SuccID);
+    }
+
+    public void setToP1CandID(int toP1CandID) {
+        this.toP1CandID = toP1CandID;
+    }
+    public void setToP2CandID(int toP2CandID) {
+        this.toP2CandID = toP2CandID;
+    }
+
+    public void setMvar(int mvar) {
+        this.mvar = mvar;
+    }
+
+    public void setMvar1(int mvar1) {
+        this.mvar1 = mvar1;
+    }
+
+    public void setMvar2(int mvar2) {
+        this.mvar2 = mvar2;
+    }
+
+    public void setRvar(int rvar) {
+        this.rvar = rvar;
+    }
+
+    public void setToP1ID(int toP1ID) {
+        this.toP1ID = toP1ID;
+    }
+
+    public void setToP2ID(int toP2ID) {
+        this.toP2ID = toP2ID;
     }
 
     //remove

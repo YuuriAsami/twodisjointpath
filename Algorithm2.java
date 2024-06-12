@@ -459,17 +459,41 @@ public class Algorithm2 extends Graph {
             while (!s2.gets2p()) {
                 if (s2.gettOnPp()) {
                     if (s2.gettMarkedp()) {
-                        s2.settsp1(s2.gettParp());
+                        s2.settsp2(s2.gettParp());
                         s2 = NodeList.get(s2.gettParp());
                     } else {
-                        s2.settsp1(s2.gettPp());
+                        s2.settsp2(s2.gettPp());
                         s2 = NodeList.get(s2.gettPp());
                     }
                 } else {
-                    s2.settsp1(s2.gettParp());
+                    s2.settsp2(s2.gettParp());
                     s2 = NodeList.get(s2.gettParp());
                 }
             }
+        }
+        for(int j = 0; j < NodeList.size(); j++) {
+            if(NodeList.get(j).gettsp1() == 0) {
+                NodeList.get(j).settsp1(-1);
+            }
+            if(NodeList.get(j).gettsp2() == 0) {
+                NodeList.get(j).settsp2(-1);
+            }
+        }
+    }
+
+    //P1SuccID,P2SuccIDの設定
+    public void P2defineSuccID() {
+        for(int i = 0; i < NodeList.size(); i++) {
+            Node now = NodeList.get(i);
+            ArrayList<Integer> nowlist = now.getList();
+            for(int j = 0; j < nowlist.size(); j ++) {
+                if(NodeList.get(nowlist.get(j)).gettsp2() == i) {
+                    now.setP2SuccID(0, nowlist.get(j));
+                }
+                if(NodeList.get(nowlist.get(j)).gettsp1() == i) {
+                    now.setP2SuccID(0, nowlist.get(j));
+                }
+            } 
         }
     }
 
