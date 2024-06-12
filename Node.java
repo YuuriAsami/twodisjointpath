@@ -63,6 +63,8 @@ public class Node {
     private int toP2CandID;
     private int toP1ID;
     private int toP2ID;
+    private int NG;
+    private ArrayList<Integer> DAGSuccID;
     private int mvar;
     private int mvar1;
     private int mvar2;
@@ -91,6 +93,7 @@ public class Node {
         tChildrenp = new ArrayList<>();
         P1SuccID = new ArrayList<>();
         P2SuccID = new ArrayList<>();
+        DAGSuccID = new ArrayList<>();
         //q = new ArrayList<>();
         //toP1CandID = new ArrayList<>();
         //toP2CandID = new ArrayList<>();
@@ -325,8 +328,8 @@ public class Node {
         return P2SuccID;
     }
 
-    public int getp1SuccID() {
-        return P1SuccID.get(0);
+    public int getp1SuccID(int i) {
+        return P1SuccID.get(i);
     }
 
     public int getp2SuccID(int i) {
@@ -363,6 +366,18 @@ public class Node {
 
     public int getToP2ID() {
         return toP2ID;
+    }
+
+    public int getNG() {
+        return NG;
+    }
+
+    public ArrayList<Integer> getDAGSuccID() {
+        return DAGSuccID;
+    }
+
+    public int getdagsuccid(int i) {
+        return DAGSuccID.get(i);
     }
 
     // set
@@ -587,6 +602,14 @@ public class Node {
 
     public void setToP2ID(int toP2ID) {
         this.toP2ID = toP2ID;
+    }
+
+    public void setNG(int nG) {
+        NG = nG;
+    }
+
+    public void setDAGSuccID(int i, int dagsuccid) {
+        DAGSuccID.add(i, dagsuccid);
     }
 
     //remove

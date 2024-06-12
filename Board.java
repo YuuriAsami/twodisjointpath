@@ -36,7 +36,7 @@ public class Board extends JPanel implements ActionListener {
 
         // constracter
         setFocusable(true);
-        int DELAY = 600;
+        int DELAY = 300;
         timer = new Timer(DELAY, this);
         timer.start();
         statusbar = parent.getStatusBar();
@@ -74,6 +74,8 @@ public class Board extends JPanel implements ActionListener {
             tGraph.definetoP1();
         } else if (counter == 3) {
             tGraph.definetoP2();
+        } else if (counter == 4) {
+            tGraph.propagationNG();
         }
         repaint();
     }
@@ -163,15 +165,18 @@ public class Board extends JPanel implements ActionListener {
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 // g.drawString("s1", tmp.getX()-20, tmp.getY()-20);
                 // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.getCp()+",Rp:
-                // "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp: "+tmp.getFp(),
+                // "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp:
+                // "+tmp.getFp(),
                 // tmp.getX()-50, tmp.getY()-50);
                 // g.drawString("PotentialPp: "+tmp.getPotentialPp()+",Childp:
                 // "+tmp.getChildp()+",Mp: "+tmp.getMp()+"NMp: "+tmp.getNMp(), tmp.getX()-50,
                 // tmp.getY()-35);
                 // g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.getleafp()+",Marked:
-                // "+tmp.getMarkedp()+",Existp: "+tmp.getExistp(), tmp.getX()-50, tmp.getY()-20);
+                // "+tmp.getMarkedp()+",Existp: "+tmp.getExistp(), tmp.getX()-50,
+                // tmp.getY()-20);
                 // g.drawString("sp1: "+tmp.getsp1(), tmp.getX()-50, tmp.getY()-20);
-                // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() - 20);
+                // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() -
+                // 20);
                 // g.drawString("sp1: "+tmp.getsp1()+",sp2: "+tmp.getsp2(), tmp.getX()-50,
                 // tmp.getY()-20);
                 g.drawString("" + tmp.getId(), tmp.getX(), tmp.getY());
@@ -191,11 +196,13 @@ public class Board extends JPanel implements ActionListener {
                 // "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50,
                 // tmp.getY()-35);
                 // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp()+",Marked:
-                // "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
+                // "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50,
+                // tmp.getY()-20);
                 // g.drawString("sp1: "+tmp.getsp1()+",sp2: "+tmp.getsp2(), tmp.getX()-50,
                 // tmp.getY()-20);
                 g.drawString("" + tmp.getId(), tmp.getX(), tmp.getY());
-                // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() - 20);
+                // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() -
+                // 20);
                 // g.drawString("" + tmp.gettOnPp(), tmp.getX() + 20, tmp.getY() + 20);
             } else if (tmp.gett1p()) {
                 g.setColor(Color.GREEN);
@@ -205,17 +212,20 @@ public class Board extends JPanel implements ActionListener {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 // g.drawString("t1", tmp.getX()-20, tmp.getY()-20);
-                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp:
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp:
+                // "+tmp.gettCp()+",Rp:
                 // "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp:
                 // "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
                 // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp:
                 // "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50,
                 // tmp.getY()-35);
                 // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp()+",Marked:
-                // "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
+                // "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50,
+                // tmp.getY()-20);
                 // g.drawString("sp1: "+tmp.getsp1()+",sp2: "+tmp.getsp2(), tmp.getX()-50,
                 // tmp.getY()-20);
-                // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() - 20);
+                // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() -
+                // 20);
                 g.drawString("" + tmp.getId(), tmp.getX(), tmp.getY());
                 // g.drawString("" + tmp.gettOnPp(), tmp.getX() + 20, tmp.getY() + 20);
             } else if (tmp.gett2p()) {
@@ -226,17 +236,20 @@ public class Board extends JPanel implements ActionListener {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 // g.drawString("t2", tmp.getX()-20, tmp.getY()-20);
-                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp:
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp:
+                // "+tmp.gettCp()+",Rp:
                 // "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp:
                 // "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
                 // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp:
                 // "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50,
                 // tmp.getY()-35);
                 // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp()+",Marked:
-                // "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
+                // "+tmp.gettMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50,
+                // tmp.getY()-20);
                 // g.drawString("sp1: "+tmp.getsp1()+",sp2: "+tmp.getsp2(), tmp.getX()-50,
                 // tmp.getY()-20);
-                // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() - 20);
+                // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() -
+                // 20);
                 g.drawString("" + tmp.getId(), tmp.getX(), tmp.getY());
                 // g.drawString("" + tmp.gettOnPp(), tmp.getX() + 20, tmp.getY() + 20);
             } else /* if (tmp.gettOnPp()) */ {
@@ -254,17 +267,20 @@ public class Board extends JPanel implements ActionListener {
                 }
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp:
+                // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp:
+                // "+tmp.gettCp()+",Rp:
                 // "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp:
                 // "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
                 // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp:
                 // "+tmp.gettChildp()+",Mp: "+tmp.gettMp()+"NMp: "+tmp.gettNMp(), tmp.getX()-50,
                 // tmp.getY()-35);
                 // g.drawString("rootp: "+tmp.getrootp()+",leafp: "+tmp.gettleafp()+",Marked:
-                // "+tmp.getMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50, tmp.getY()-20);
+                // "+tmp.getMarkedp()+",Existp: "+tmp.gettExistp(), tmp.getX()-50,
+                // tmp.getY()-20);
                 // g.drawString("sp1: "+tmp.getsp1()+",sp2: "+tmp.getsp2(), tmp.getX()-50,
                 // tmp.getY()-20);
-                // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() - 20);
+                // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() -
+                // 20);
                 g.drawString("" + tmp.getId(), tmp.getX(), tmp.getY());
             }
             // g.drawString("" + tmp.gettOnPp(), tmp.getX() + 20, tmp.getY() + 20);
@@ -275,16 +291,20 @@ public class Board extends JPanel implements ActionListener {
             // g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
             // g.setColor(Color.BLACK);
             // g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-            // // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp: "+tmp.gettCp()+",Rp:
+            // // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp:
+            // "+tmp.gettCp()+",Rp:
             // // "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp:
             // // "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
-            // // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp: "+tmp.gettChildp(),
+            // // g.drawString("PotentialPp: "+tmp.gettPotentialPp()+",Childp:
+            // "+tmp.gettChildp(),
             // // tmp.getX()-50, tmp.getY()-35);
-            // // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp(), tmp.getX()-50,
+            // // g.drawString("rootp: "+tmp.gettrootp()+",leafp: "+tmp.gettleafp(),
+            // tmp.getX()-50,
             // // tmp.getY()-20);
             // // g.drawString("sp1: "+tmp.getsp1()+",sp2: "+tmp.getsp2(), tmp.getX()-50,
             // // tmp.getY()-20);
-            // // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY() - 20);
+            // // g.drawString("P1SuccID: " + tmp.getP1SuccID(), tmp.getX() - 50, tmp.getY()
+            // - 20);
             // g.drawString("" + tmp.getId(), tmp.getX(), tmp.getY());
             // // g.drawString("" + tmp.gettOnPp(), tmp.getX() + 20, tmp.getY() + 20);
             // }
@@ -292,7 +312,7 @@ public class Board extends JPanel implements ActionListener {
                     tmp.getX() - 50, tmp.getY() - 55);
             g.drawString("toP1CandID: " + tmp.getP1CandID() + ",toP2CandID: " + tmp.getP2CandID(),
                     tmp.getX() - 50, tmp.getY() - 40);
-            g.drawString("toP1ID: " + tmp.getToP1ID() + "toP2ID: " + tmp.getToP2ID(),
+            g.drawString("toP1ID: " + tmp.getToP1ID() + "toP2ID: " + tmp.getToP2ID() + ",NG: " + tmp.getNG(),
                     tmp.getX() - 50, tmp.getY() - 25);
             // g.drawString(, tmp.getX() - 50, tmp.getY() - 20);
         }

@@ -1202,4 +1202,128 @@ public class Algorithm extends Graph {
             now.setToP2ID(now.getRvar());
         }
     }
+
+    // step3 ST-DAG構築
+    // NG伝搬
+    public void propagationNG() {
+        for(int i = 0; i < NodeList.size(); i++) {
+            NodeList.get(i).setRvar(0);
+        }
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int i = 0; i <= 24; i++) {
+            list.add(i);
+        }
+        Collections.shuffle(list);
+        Random rand = new Random();
+        int num = rand.nextInt(24) + 1;
+        for (int i = 0; i < num; i++) {
+            if (!NodeList.get(list.get(i)).getP1SuccID().isEmpty()) {
+                NodeList.get(list.get(i)).setMvar(
+                        NodeList.get(NodeList.get(list.get(i)).getp1SuccID(0)).getNG());
+            } else if (!NodeList.get(list.get(i)).getP2SuccID().isEmpty()) {
+                NodeList.get(list.get(i)).setMvar1(
+                        NodeList.get(NodeList.get(list.get(i)).getp2SuccID(0)).getNG());
+            }
+        }
+        for (int i = 0; i < num; i++) {
+            Node now = NodeList.get(list.get(i));
+            if (now.gets1p() || now.gets2p() || now.gett1p() || now.gett2p() || istoP1i(list.get(i)) == 1
+                    || istoP2i(i) == 1) {
+                now.setRvar(0);
+            } else if (!now.getP1SuccID().isEmpty() && istoP1i(now.getp1SuccID(0)) == 1) {
+                now.setRvar(1);
+            } else if (!now.getP2SuccID().isEmpty() && istoP1i(now.getp2SuccID(0)) != 1
+                    && !NodeList.get(now.getp2SuccID(0)).getP1SuccID().isEmpty()) {
+                now.setRvar(1);
+            } else if (!now.getP1SuccID().isEmpty() && !now.getP2SuccID().isEmpty()) {
+                if (now.getMvar() == 1) {
+                    now.setRvar(1);
+                } else {
+                    now.setRvar(0);
+                }
+            } else if (!now.getP1SuccID().isEmpty() || !now.getP2SuccID().isEmpty()) {
+                if (now.getP2SuccID().isEmpty()) {
+                    if (now.getMvar() == 1) {
+                        now.setRvar(1);
+                    }
+                } else if (!now.getP2SuccID().isEmpty()) {
+                    if (now.getMvar1() == 1) {
+                        now.setRvar(1);
+                    }
+                } else {
+                    now.setRvar(0);
+                }
+            }
+        }
+        for (int i = 0; i < num; i++) {
+            Node now = NodeList.get(list.get(i));
+            now.setNG(now.getRvar());
+        }
+    }
+
+    public int istoP1i(int i) {
+        Node istop1 = NodeList.get(i);
+        if (istop1.getToP1ID() == i
+                && (!istop1.getP2SuccID().isEmpty() || isiinP2SuccIDj(i))) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public int istoP2i(int i) {
+        Node istop1 = NodeList.get(i);
+        if (istop1.getToP2ID() == i
+                && (!istop1.getP2SuccID().isEmpty() || isiinP2SuccIDj(i))) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public boolean isiinP2SuccIDj(int i) {
+        if (NodeList.get(i).gett2p()) {
+            if (NodeList.get(NodeList.get(i).gettsp1()).getp2SuccID(0) == i
+                    || NodeList.get(NodeList.get(i).gettsp2()).getp2SuccID(0) == i) {
+                return true;
+            } else
+                return false;
+        } else if (!NodeList.get(i).gets2p()) {
+            if (NodeList.get(i).gettsp1() != -1) {
+                if (NodeList.get(NodeList.get(i).gettsp1()).getp2SuccID(0) == i) {
+                    return true;
+                } else
+                    return false;
+            } else if (NodeList.get(i).gettsp2() != -1) {
+                if (NodeList.get(NodeList.get(i).gettsp2()).gets2p()) {
+                    if (NodeList.get(NodeList.get(i).gettsp2()).getp2SuccID(1) == i) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (NodeList.get(NodeList.get(i).gettsp2()).getp2SuccID(0) == i) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    // ST-DAG構築
+    public void constructionST_DAG() {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int i = 0; i <= 24; i++) {
+            list.add(i);
+        }
+        Collections.shuffle(list);
+        Random rand = new Random();
+        int num = rand.nextInt(24) + 1;
+    }
 }

@@ -19,7 +19,7 @@ public class kAlgorithm extends Algorithm {
         int num = rand.nextInt(24) + 1;
         //ArrayList<Integer> mlist = new ArrayList<Integer>();
         for (int i = 0; i < num; i++) {
-            NodeList.get(list.get(i)).setMvar(NodeList.get(NodeList.get(list.get(i)).getp1SuccID()).getP1CandID());
+            //NodeList.get(list.get(i)).setMvar(NodeList.get(NodeList.get(list.get(i)).getp1SuccID()).getP1CandID());
         }
         ArrayDeque<Integer> q = new ArrayDeque<>();
         for (int i = 0; i < num; i++) {
@@ -35,7 +35,7 @@ public class kAlgorithm extends Algorithm {
                     if (!now.getP1SuccID().isEmpty()) {
                         q.add(list.get(i));
                     } else {
-                        q.add(NodeList.get(now.getp1SuccID()).getMvar());
+                        //q.add(NodeList.get(now.getp1SuccID()).getMvar());
                     }
                 }
             } else {
