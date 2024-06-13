@@ -88,7 +88,7 @@ class Graph {
                     a[i].setList(16);
                     break;
                 case 13:
-                    a[i] = new Node(860, 610, i, false, false, false, false);
+                    a[i] = new Node(740, 690, i, false, false, false, false);
                     a[i].setList(8);
                     a[i].setList(16);
                     a[i].setList(17);
@@ -112,7 +112,7 @@ class Graph {
                     a[i].setList(22);
                     break;
                 case 17:
-                    a[i] = new Node(925, 480, i, false, false, false, false);
+                    a[i] = new Node(830, 550, i, false, false, false, false);
                     a[i].setList(13);
                     a[i].setList(19);
                     a[i].setList(21);
@@ -123,36 +123,36 @@ class Graph {
                     a[i].setList(15);
                     break;
                 case 19:
-                    a[i] = new Node(1080, 375, i, false, false, false, true);
+                    a[i] = new Node(870, 450, i, false, false, false, true);
                     a[i].setList(17);
                     a[i].setList(21);
                     break;
                 case 20:
-                    a[i] = new Node(1270, 635, i, false, false, false, false);
+                    a[i] = new Node(1100, 635, i, false, false, false, false);
                     a[i].setList(13);
                     a[i].setList(21);
                     a[i].setList(22);
                     a[i].setList(23);
                     break;
                 case 21:
-                    a[i] = new Node(1230, 490, i, false, false, false, false);
+                    a[i] = new Node(1020, 490, i, false, false, false, false);
                     a[i].setList(17);
                     a[i].setList(19);
                     a[i].setList(20);
                     break;
                 case 22:
-                    a[i] = new Node(1320, 820, i, false, false, false, false);
+                    a[i] = new Node(1150, 820, i, false, false, false, false);
                     a[i].setList(16);
                     a[i].setList(20);
                     a[i].setList(24);
                     break;
                 case 23:
-                    a[i] = new Node(1530, 400, i, false, false, true, false);
+                    a[i] = new Node(1280, 500, i, false, false, true, false);
                     a[i].setList(20);
                     a[i].setList(24);
                     break;
                 case 24:
-                    a[i] = new Node(1560, 750, i, false, false, false, false);
+                    a[i] = new Node(1300, 750, i, false, false, false, false);
                     a[i].setList(23);
                     a[i].setList(22);
                     break;

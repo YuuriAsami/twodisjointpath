@@ -1256,6 +1256,8 @@ public class Algorithm extends Graph {
                 } else {
                     now.setRvar(0);
                 }
+            } else {
+                now.setRvar(1);
             }
         }
         for (int i = 0; i < num; i++) {
@@ -1279,6 +1281,41 @@ public class Algorithm extends Graph {
             return 1;
         } else {
             return 0;
+        }
+    }
+
+    public boolean isiinP1SuccIDj(int i) {
+        if (NodeList.get(i).gett1p()) {
+            if (NodeList.get(NodeList.get(i).getsp1()).getp1SuccID(0) == i
+                    || NodeList.get(NodeList.get(i).getsp2()).getp1SuccID(0) == i) {
+                return true;
+            } else
+                return false;
+        } else if (!NodeList.get(i).gets1p()) {
+            if (NodeList.get(i).getsp1() != -1) {
+                if (NodeList.get(NodeList.get(i).getsp1()).getp1SuccID(0) == i) {
+                    return true;
+                } else
+                    return false;
+            } else if (NodeList.get(i).getsp2() != -1) {
+                if (NodeList.get(NodeList.get(i).getsp2()).gets1p()) {
+                    if (NodeList.get(NodeList.get(i).getsp2()).getp1SuccID(1) == i) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (NodeList.get(NodeList.get(i).getsp2()).getp1SuccID(0) == i) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 
@@ -1317,8 +1354,17 @@ public class Algorithm extends Graph {
         }
     }
 
+    public void readySTDAG() {
+        for(int i = 0; i < NodeList.size(); i++) {
+            NodeList.get(i).setDAG(1);
+        }
+    }
+
     // ST-DAG構築
     public void constructionST_DAG() {
+        for(int i = 0; i < NodeList.size(); i++) {
+            NodeList.get(i).setDAG(2);
+        }
         ArrayList<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i <= 24; i++) {
             list.add(i);
@@ -1326,5 +1372,101 @@ public class Algorithm extends Graph {
         Collections.shuffle(list);
         Random rand = new Random();
         int num = rand.nextInt(24) + 1;
+        for (int i = 0; i < num; i++) {
+            Node now = NodeList.get(list.get(i));
+            if (now.getsp1() != -1 && !NodeList.get(now.getsp1()).getDAGSuccID().isEmpty()
+                    && NodeList.get(now.getsp1()).getdagsuccid(0) == list.get(i)) {
+                // if(NodeList.get(now.getsp1()).getdagsuccid(0) == list.get(i)) {
+                now.setMvar(NodeList.get(now.getsp1()).getdagsuccid(0));
+                // } else {
+                // now.setMvar(-1);
+                // }
+            } else if (now.getsp2() != -1 && !NodeList.get(now.getsp2()).getDAGSuccID().isEmpty()
+                    && NodeList.get(now.getsp2()).getdagsuccid(0) == list.get(i)) {
+                // if (NodeList.get(now.getsp2()).getdagsuccid(0) == list.get(i)) {
+                now.setMvar(NodeList.get(now.getsp2()).getdagsuccid(0));
+                // } else {
+                // now.setMvar(-1);
+                // }
+            } else if (now.gettsp1() != -1 && !NodeList.get(now.gettsp1()).getDAGSuccID().isEmpty()
+                    && NodeList.get(now.gettsp1()).getdagsuccid(0) == list.get(i)) {
+                // if (NodeList.get(now.gettsp1()).getdagsuccid(0) == list.get(i)) {
+                now.setMvar(NodeList.get(now.gettsp1()).getdagsuccid(0));
+                // } else {
+                // now.setMvar(-1);
+                // }
+            } else if (now.gettsp2() != -1 && !NodeList.get(now.gettsp2()).getDAGSuccID().isEmpty()
+                    && NodeList.get(now.gettsp2()).getdagsuccid(0) == list.get(i)) {
+                // if (NodeList.get(now.gettsp2()).getdagsuccid(0) == list.get(i)) {
+                now.setMvar(NodeList.get(now.gettsp2()).getdagsuccid(0));
+                // } else {
+                // now.setMvar(-1);
+                // }
+            } else {
+                now.setMvar(-1);
+            }
+        }
+        for (int i = 0; i < num; i++) {
+            Node now = NodeList.get(list.get(i));
+            if (istoP1i(list.get(i)) == 1 && istoP2i(list.get(i)) != 1) {
+                if (!now.getP1SuccID().isEmpty()) {
+                    now.setRvar(now.getp1SuccID(0));
+                }
+            } else if (istoP2i(list.get(i)) == 1) {
+                if (!now.getP2SuccID().isEmpty()) {
+                    now.setRvar(now.getp2SuccID(0));
+                }
+            } else if (now.gets1p()) {
+                if (!now.getP1SuccID().isEmpty() && NodeList.get(now.getp1SuccID(0)).getNG() != 1
+                        && istoP1i(now.getp1SuccID(0)) != 1) {
+                    now.setRvar(now.getp1SuccID(0));
+                } else if (!now.getP1SuccID().isEmpty()
+                        && NodeList.get(now.getp1SuccID(1)).getNG() != 1
+                        && istoP1i(now.getp1SuccID(1)) != 1) {
+                    now.setRvar(now.getp1SuccID(1));
+                }
+            } else if (now.gets2p()) {
+                if (!now.getP2SuccID().isEmpty() && NodeList.get(now.getp2SuccID(0)).getNG() != 1
+                        && (NodeList.get(now.getp2SuccID(0)).getP1SuccID().isEmpty()
+                                || istoP1i(now.getp2SuccID(0)) == 1)) {
+                    now.setRvar(now.getp2SuccID(0));
+                } else if (!now.getP2SuccID().isEmpty()
+                        && NodeList.get(now.getp2SuccID(1)).getNG() != 1
+                        && (NodeList.get(now.getp2SuccID(1)).getP1SuccID().isEmpty()
+                                || istoP1i(now.getp2SuccID(1)) == 1)) {
+                    now.setRvar(now.getp2SuccID(1));
+                }
+            } else if (now.gett1p() || now.gett2p()) {
+                now.setRvar(-1);
+            } else if (!now.getP1SuccID().isEmpty() || !now.getP2SuccID().isEmpty()) {
+                if (now.getMvar() == list.get(i) /*&& isiinP1SuccIDj(list.get(i))*/
+                        && !now.getP1SuccID().isEmpty()) {
+                    now.setRvar(now.getp1SuccID(0));
+                } else if (now.getMvar() == list.get(i) /*&& isiinP2SuccIDj(list.get(i))*/
+                        && !now.getP2SuccID().isEmpty()) {
+                    now.setRvar(now.getp2SuccID(0));
+                } else {
+                    now.setRvar(-1);
+                }
+            } else {
+                now.setRvar(-1);
+            }
+        }
+        for (int i = 0; i < num; i++) {
+            Node now = NodeList.get(list.get(i));
+            if (now.getDAGSuccID().isEmpty()) {
+                now.setdagsuccid(now.getRvar());
+            } else {
+                now.setDAGSuccID(0, now.getRvar());
+            }
+        }
+        // for (int i = 0; i < num; i++) {
+        //     Node now = NodeList.get(list.get(i));
+        //     if (list.get(i) == 14) {
+        //         if (!NodeList.get(now.gettsp1()).getDAGSuccID().isEmpty())
+        //             //System.out.println(NodeList.get(now.gettsp1()).getDAGSuccID());
+        //             //System.out.println(NodeList.get(now.gettsp1()).getdagsuccid(0));
+        //     }
+        // }
     }
 }

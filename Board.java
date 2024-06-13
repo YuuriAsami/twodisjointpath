@@ -76,6 +76,10 @@ public class Board extends JPanel implements ActionListener {
             tGraph.definetoP2();
         } else if (counter == 4) {
             tGraph.propagationNG();
+        } else if (counter == 5) {
+            tGraph.readySTDAG();;
+        } else if (counter == 6) {
+            tGraph.constructionST_DAG();
         }
         repaint();
     }
@@ -123,35 +127,55 @@ public class Board extends JPanel implements ActionListener {
             ArrayList<Integer> line = tmp.getList();
             ArrayList<Integer> P1line = tmp.getP1SuccID();
             ArrayList<Integer> P2line = tmp.getP2SuccID();
-            for (int j = 0; j < line.size(); j++) {
-                // if(tmp.gettOnPp()){
-                // g.setColor(Color.RED);
-                // g.drawLine(tmp.getX()+10, tmp.getY()+10,
-                // Nodelist.get(line.get(j)).getX()+10, Nodelist.get(line.get(j)).getY()+10);
-                // }else{
-                if (line.get(j) < i) {
-                    g.setColor(Color.BLACK);
-                    g.drawLine(tmp.getX(), tmp.getY(), Nodelist.get(line.get(j)).getX(),
-                            Nodelist.get(line.get(j)).getY());
-                }
-                for (int k = 0; k < P1line.size(); k++) {
-                    if (P1line.get(k) == line.get(j)) {
-                        g.setColor(Color.GREEN);
-                        g.drawLine(tmp.getX() + 10, tmp.getY() + 10,
-                                Nodelist.get(line.get(j)).getX() + 10,
-                                Nodelist.get(line.get(j)).getY() + 10);
+            ArrayList<Integer> DAGline = tmp.getDAGSuccID();
+            if (tmp.getDAG() == 0) {
+                for (int j = 0; j < line.size(); j++) {
+                    if (line.get(j) < i) {
+                        g.setColor(Color.BLACK);
+                        g.drawLine(tmp.getX(), tmp.getY(), Nodelist.get(line.get(j)).getX(),
+                                Nodelist.get(line.get(j)).getY());
+                    }
+                    for (int k = 0; k < P1line.size(); k++) {
+                        if (P1line.get(k) == line.get(j)) {
+                            g.setColor(Color.GREEN);
+                            g.drawLine(tmp.getX() + 10, tmp.getY() + 10,
+                                    Nodelist.get(line.get(j)).getX() + 10,
+                                    Nodelist.get(line.get(j)).getY() + 10);
+                        }
+                    }
+                    for (int k = 0; k < P2line.size(); k++) {
+                        if (P2line.get(k) == line.get(j)) {
+                            g.setColor(Color.RED);
+                            g.drawLine(tmp.getX() - 10, tmp.getY() - 10,
+                                    Nodelist.get(line.get(j)).getX() - 10,
+                                    Nodelist.get(line.get(j)).getY() - 10);
+                        }
                     }
                 }
-                for (int k = 0; k < P2line.size(); k++) {
-                    if (P2line.get(k) == line.get(j)) {
-                        g.setColor(Color.RED);
-                        g.drawLine(tmp.getX() - 10, tmp.getY() - 10,
-                                Nodelist.get(line.get(j)).getX() - 10,
-                                Nodelist.get(line.get(j)).getY() - 10);
+            } else if (tmp.getDAG() == 1) {
+                for (int j = 0; j < line.size(); j++) {
+                    if (line.get(j) < i) {
+                        g.setColor(Color.GRAY);
+                        g.drawLine(tmp.getX(), tmp.getY(), Nodelist.get(line.get(j)).getX(),
+                                Nodelist.get(line.get(j)).getY());
                     }
                 }
-                // }
-
+            } else if (tmp.getDAG() == 2) {
+                for (int j = 0; j < line.size(); j++) {
+                    for (int k = 0; k < DAGline.size(); k++) {
+                        if (DAGline.get(k) == line.get(j)) {
+                            g.setColor(Color.BLUE);
+                            g.drawLine(tmp.getX() + 5, tmp.getY() + 5,
+                                    Nodelist.get(DAGline.get(k)).getX() + 5,
+                                    Nodelist.get(DAGline.get(k)).getY() + 5);
+                            break;
+                        } else if (DAGline.get(k) != line.get(j)) {
+                            g.setColor(Color.GRAY);
+                            g.drawLine(tmp.getX(), tmp.getY(), Nodelist.get(line.get(j)).getX(),
+                                    Nodelist.get(line.get(j)).getY());
+                        }
+                    }
+                }
             }
         }
         for (int i = 0; i < tGraph.size(); i++) {
@@ -163,7 +187,7 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                // g.drawString("s1", tmp.getX()-20, tmp.getY()-20);
+                g.drawString("s1", tmp.getX() - 30, tmp.getY());
                 // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.getCp()+",Rp:
                 // "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp:
                 // "+tmp.getFp(),
@@ -188,7 +212,7 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                // g.drawString("s2", tmp.getX()-20, tmp.getY()-20);
+                g.drawString("s2", tmp.getX() - 30, tmp.getY());
                 // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.gettCp()+",Rp:
                 // "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp:
                 // "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
@@ -211,7 +235,7 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                // g.drawString("t1", tmp.getX()-20, tmp.getY()-20);
+                g.drawString("t1", tmp.getX() - 30, tmp.getY());
                 // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp:
                 // "+tmp.gettCp()+",Rp:
                 // "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp:
@@ -235,7 +259,7 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                // g.drawString("t2", tmp.getX()-20, tmp.getY()-20);
+                g.drawString("t2", tmp.getX() - 30, tmp.getY());
                 // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp:
                 // "+tmp.gettCp()+",Rp:
                 // "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp:
@@ -252,7 +276,7 @@ public class Board extends JPanel implements ActionListener {
                 // 20);
                 g.drawString("" + tmp.getId(), tmp.getX(), tmp.getY());
                 // g.drawString("" + tmp.gettOnPp(), tmp.getX() + 20, tmp.getY() + 20);
-            } else /* if (tmp.gettOnPp()) */ {
+            } else {
                 g.setColor(Color.BLACK);
                 g.drawOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
                 if (tmp.getToP1ID() == i) {
@@ -308,27 +332,18 @@ public class Board extends JPanel implements ActionListener {
             // g.drawString("" + tmp.getId(), tmp.getX(), tmp.getY());
             // // g.drawString("" + tmp.gettOnPp(), tmp.getX() + 20, tmp.getY() + 20);
             // }
-            g.drawString("P1SuccID: " + tmp.getP1SuccID() + ",P2SuccID: " + tmp.getP2SuccID(),
-                    tmp.getX() - 50, tmp.getY() - 55);
+            // g.drawString("sp1: " + tmp.getsp1() + ",sp2: " + tmp.getsp2(), tmp.getX() - 50,
+            // tmp.getY() - 70);
+            // g.drawString("tp1: " + tmp.gettsp1() + ",tp2: " + tmp.gettsp2(), tmp.getX() - 50,
+            // tmp.getY() - 55);
+            g.drawString("DAGSuccID: " + tmp.getDAGSuccID(), tmp.getX() - 50, tmp.getY() - 55);
             g.drawString("toP1CandID: " + tmp.getP1CandID() + ",toP2CandID: " + tmp.getP2CandID(),
                     tmp.getX() - 50, tmp.getY() - 40);
-            g.drawString("toP1ID: " + tmp.getToP1ID() + "toP2ID: " + tmp.getToP2ID() + ",NG: " + tmp.getNG(),
-                    tmp.getX() - 50, tmp.getY() - 25);
+            g.drawString("toP1ID: " + tmp.getToP1ID() + ",toP2ID: " + tmp.getToP2ID() + ",NG: "
+                    + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 25);
             // g.drawString(, tmp.getX() - 50, tmp.getY() - 20);
         }
     }
-
-    // write GUI
-    // g.setColor(Color.WHITE);
-    // g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-    // g.drawString(symbol,
-    // j * squareW + ((squareW - g.getFontMetrics().stringWidth(symbol)) >> 1),
-    // boardTop + i * squareH + (squareH >> 1) + (g.getFontMetrics().getHeight() >>
-    // 2));
-    // g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
-    // g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
-    // x + squareWidth() - 1, y + 1);
-    // }
 
     @Override
     public void paintComponent(Graphics g) {

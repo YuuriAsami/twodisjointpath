@@ -1,5 +1,5 @@
 
-//import java.util.*;
+// import java.util.*;
 import java.util.ArrayList;
 
 public class Node {
@@ -65,6 +65,7 @@ public class Node {
     private int toP2ID;
     private int NG;
     private ArrayList<Integer> DAGSuccID;
+    private int DAG;
     private int mvar;
     private int mvar1;
     private int mvar2;
@@ -94,9 +95,9 @@ public class Node {
         P1SuccID = new ArrayList<>();
         P2SuccID = new ArrayList<>();
         DAGSuccID = new ArrayList<>();
-        //q = new ArrayList<>();
-        //toP1CandID = new ArrayList<>();
-        //toP2CandID = new ArrayList<>();
+        // q = new ArrayList<>();
+        // toP1CandID = new ArrayList<>();
+        // toP2CandID = new ArrayList<>();
     }
 
     // get
@@ -380,6 +381,10 @@ public class Node {
         return DAGSuccID.get(i);
     }
 
+    public int getDAG() {
+        return DAG;
+    }
+
     // set
     public void setLp(int lp) {
         this.Lp = lp;
@@ -566,16 +571,17 @@ public class Node {
     }
 
     public void setP1SuccID(int i, int p1SuccID) {
-        P1SuccID.add(i,p1SuccID);
+        P1SuccID.add(i, p1SuccID);
     }
 
     public void setP2SuccID(int j, int p2SuccID) {
-        P2SuccID.add(j,p2SuccID);
+        P2SuccID.add(j, p2SuccID);
     }
 
     public void setToP1CandID(int toP1CandID) {
         this.toP1CandID = toP1CandID;
     }
+
     public void setToP2CandID(int toP2CandID) {
         this.toP2CandID = toP2CandID;
     }
@@ -608,11 +614,20 @@ public class Node {
         NG = nG;
     }
 
-    public void setDAGSuccID(int i, int dagsuccid) {
-        DAGSuccID.add(i, dagsuccid);
+
+    public void setdagsuccid(int dagsuccid) {
+        DAGSuccID.add(dagsuccid);
     }
 
-    //remove
+    public void setDAGSuccID(int i, int dagsuccid) {
+        DAGSuccID.set(i, dagsuccid);
+    }
+
+    public void setDAG(int dAG) {
+        DAG = dAG;
+    }
+
+    // remove
     public void removePotentialPp() {
         PotentialPp.clear();
     }
