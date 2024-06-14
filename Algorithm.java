@@ -1208,9 +1208,6 @@ public class Algorithm extends Graph {
     // step3 ST-DAG構築
     // NG伝搬
     public void propagationNG() {
-        // for (int i = 0; i < NodeList.size(); i++) {
-        // NodeList.get(i).setRvar(0);
-        // }
         ArrayList<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i <= 24; i++) {
             list.add(i);
@@ -1248,10 +1245,14 @@ public class Algorithm extends Graph {
                 if (now.getP2SuccID().isEmpty()) {
                     if (now.getMvar() == 1) {
                         now.setRvar(1);
+                    } else {
+                        now.setRvar(0);
                     }
-                } else if (now.getP2SuccID().isEmpty()) {
+                } else if (now.getP1SuccID().isEmpty()) {
                     if (now.getMvar1() == 1) {
                         now.setRvar(1);
+                    } else {
+                        now.setRvar(0);
                     }
                 } else {
                     now.setRvar(0);
@@ -1355,14 +1356,14 @@ public class Algorithm extends Graph {
     }
 
     public void readySTDAG() {
-        for(int i = 0; i < NodeList.size(); i++) {
+        for (int i = 0; i < NodeList.size(); i++) {
             NodeList.get(i).setDAG(1);
         }
     }
 
     // ST-DAG構築
     public void constructionST_DAG() {
-        for(int i = 0; i < NodeList.size(); i++) {
+        for (int i = 0; i < NodeList.size(); i++) {
             NodeList.get(i).setDAG(2);
         }
         ArrayList<Integer> list = new ArrayList<Integer>();
@@ -1376,32 +1377,16 @@ public class Algorithm extends Graph {
             Node now = NodeList.get(list.get(i));
             if (now.getsp1() != -1 && !NodeList.get(now.getsp1()).getDAGSuccID().isEmpty()
                     && NodeList.get(now.getsp1()).getdagsuccid(0) == list.get(i)) {
-                // if(NodeList.get(now.getsp1()).getdagsuccid(0) == list.get(i)) {
                 now.setMvar(NodeList.get(now.getsp1()).getdagsuccid(0));
-                // } else {
-                // now.setMvar(-1);
-                // }
             } else if (now.getsp2() != -1 && !NodeList.get(now.getsp2()).getDAGSuccID().isEmpty()
                     && NodeList.get(now.getsp2()).getdagsuccid(0) == list.get(i)) {
-                // if (NodeList.get(now.getsp2()).getdagsuccid(0) == list.get(i)) {
                 now.setMvar(NodeList.get(now.getsp2()).getdagsuccid(0));
-                // } else {
-                // now.setMvar(-1);
-                // }
             } else if (now.gettsp1() != -1 && !NodeList.get(now.gettsp1()).getDAGSuccID().isEmpty()
                     && NodeList.get(now.gettsp1()).getdagsuccid(0) == list.get(i)) {
-                // if (NodeList.get(now.gettsp1()).getdagsuccid(0) == list.get(i)) {
                 now.setMvar(NodeList.get(now.gettsp1()).getdagsuccid(0));
-                // } else {
-                // now.setMvar(-1);
-                // }
             } else if (now.gettsp2() != -1 && !NodeList.get(now.gettsp2()).getDAGSuccID().isEmpty()
                     && NodeList.get(now.gettsp2()).getdagsuccid(0) == list.get(i)) {
-                // if (NodeList.get(now.gettsp2()).getdagsuccid(0) == list.get(i)) {
                 now.setMvar(NodeList.get(now.gettsp2()).getdagsuccid(0));
-                // } else {
-                // now.setMvar(-1);
-                // }
             } else {
                 now.setMvar(-1);
             }
@@ -1439,11 +1424,9 @@ public class Algorithm extends Graph {
             } else if (now.gett1p() || now.gett2p()) {
                 now.setRvar(-1);
             } else if (!now.getP1SuccID().isEmpty() || !now.getP2SuccID().isEmpty()) {
-                if (now.getMvar() == list.get(i) /*&& isiinP1SuccIDj(list.get(i))*/
-                        && !now.getP1SuccID().isEmpty()) {
+                if (now.getMvar() == list.get(i) && !now.getP1SuccID().isEmpty()) {
                     now.setRvar(now.getp1SuccID(0));
-                } else if (now.getMvar() == list.get(i) /*&& isiinP2SuccIDj(list.get(i))*/
-                        && !now.getP2SuccID().isEmpty()) {
+                } else if (now.getMvar() == list.get(i) && !now.getP2SuccID().isEmpty()) {
                     now.setRvar(now.getp2SuccID(0));
                 } else {
                     now.setRvar(-1);
@@ -1460,13 +1443,5 @@ public class Algorithm extends Graph {
                 now.setDAGSuccID(0, now.getRvar());
             }
         }
-        // for (int i = 0; i < num; i++) {
-        //     Node now = NodeList.get(list.get(i));
-        //     if (list.get(i) == 14) {
-        //         if (!NodeList.get(now.gettsp1()).getDAGSuccID().isEmpty())
-        //             //System.out.println(NodeList.get(now.gettsp1()).getDAGSuccID());
-        //             //System.out.println(NodeList.get(now.gettsp1()).getdagsuccid(0));
-        //     }
-        // }
     }
 }

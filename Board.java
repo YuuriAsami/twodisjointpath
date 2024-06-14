@@ -26,7 +26,6 @@ public class Board extends JPanel implements ActionListener {
     private int point;
     private Algorithm tGraph;
     private int counter = 0;
-    // private kAlgorithm kGraph;
 
     public Board(tester parent) {
         initBoard(parent);
@@ -43,7 +42,6 @@ public class Board extends JPanel implements ActionListener {
         addKeyListener(new TAdapter());
 
         tGraph = new Algorithm();
-        // kGraph = new kAlgorithm();
         tGraph.BFS();
         tGraph.defineMainRoute();
         tGraph.definePotentialPp();
@@ -127,7 +125,6 @@ public class Board extends JPanel implements ActionListener {
             ArrayList<Integer> line = tmp.getList();
             ArrayList<Integer> P1line = tmp.getP1SuccID();
             ArrayList<Integer> P2line = tmp.getP2SuccID();
-            ArrayList<Integer> DAGline = tmp.getDAGSuccID();
             if (tmp.getDAG() == 0) {
                 for (int j = 0; j < line.size(); j++) {
                     if (line.get(j) < i) {
@@ -152,7 +149,7 @@ public class Board extends JPanel implements ActionListener {
                         }
                     }
                 }
-            } else if (tmp.getDAG() == 1) {
+            } else if (tmp.getDAG() == 1 || tmp.getDAG() == 2) {
                 for (int j = 0; j < line.size(); j++) {
                     if (line.get(j) < i) {
                         g.setColor(Color.GRAY);
@@ -160,24 +157,27 @@ public class Board extends JPanel implements ActionListener {
                                 Nodelist.get(line.get(j)).getY());
                     }
                 }
-            } else if (tmp.getDAG() == 2) {
+            }
+        }
+
+        for (int i = 0; i < tGraph.size(); i++) {
+            Node tmp = Nodelist.get(i);
+            if (tmp.getDAG() == 2) {
+                ArrayList<Integer> line = tmp.getList();
+                ArrayList<Integer> DAGline = tmp.getDAGSuccID();
                 for (int j = 0; j < line.size(); j++) {
                     for (int k = 0; k < DAGline.size(); k++) {
                         if (DAGline.get(k) == line.get(j)) {
                             g.setColor(Color.BLUE);
-                            g.drawLine(tmp.getX() + 5, tmp.getY() + 5,
-                                    Nodelist.get(DAGline.get(k)).getX() + 5,
-                                    Nodelist.get(DAGline.get(k)).getY() + 5);
+                            g.drawLine(tmp.getX(), tmp.getY(), Nodelist.get(DAGline.get(k)).getX(),
+                                    Nodelist.get(DAGline.get(k)).getY());
                             break;
-                        } else if (DAGline.get(k) != line.get(j)) {
-                            g.setColor(Color.GRAY);
-                            g.drawLine(tmp.getX(), tmp.getY(), Nodelist.get(line.get(j)).getX(),
-                                    Nodelist.get(line.get(j)).getY());
                         }
                     }
                 }
             }
         }
+
         for (int i = 0; i < tGraph.size(); i++) {
             Node tmp = Nodelist.get(i);
             if (tmp.gets1p()) {
@@ -342,6 +342,7 @@ public class Board extends JPanel implements ActionListener {
             g.drawString("toP1ID: " + tmp.getToP1ID() + ",toP2ID: " + tmp.getToP2ID() + ",NG: "
                     + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 25);
             // g.drawString(, tmp.getX() - 50, tmp.getY() - 20);
+
         }
     }
 
