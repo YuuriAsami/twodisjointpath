@@ -169,8 +169,8 @@ public class Board extends JPanel implements ActionListener {
                     for (int k = 0; k < P2line.size(); k++) {
                         if (P2line.get(k) == line.get(j)) {
                             int[] xy = new int[2];
-                            xy = getArrowxy(r, Nodelist.get(P2line.get(k)).getX(),
-                                    Nodelist.get(P2line.get(k)).getY(), tmp.getX(), tmp.getY());
+                            xy = getArrowxy(r, Nodelist.get(P2line.get(k)).getX()-5,
+                                    Nodelist.get(P2line.get(k)).getY()-5, tmp.getX()-5, tmp.getY()-5);
                             var arrow = new Arrow(new Point(tmp.getX(), tmp.getY()),
                                     new Point(xy[0], xy[1]));
                             g.setColor(Color.RED);
@@ -227,7 +227,7 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX() - r, tmp.getY() - r, 2 * r, 2 * r);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                g.drawString("s1", tmp.getX() - 30, tmp.getY());
+                g.drawString("s1", tmp.getX() - 40, tmp.getY());
                 // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.getCp()+",Rp:
                 // "+tmp.getRp()+",dp: "+tmp.getdp()+",Parp: "+tmp.getParp()+",Fp:
                 // "+tmp.getFp(),
@@ -252,7 +252,7 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX() - r, tmp.getY() - r, 2 * r, 2 * r);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                g.drawString("s2", tmp.getX() - 30, tmp.getY());
+                g.drawString("s2", tmp.getX() - 40, tmp.getY());
                 // g.drawString("Lp: "+tmp.getLp()+",Pp: "+tmp.getPp()+"Cp: "+tmp.gettCp()+",Rp:
                 // "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp:
                 // "+tmp.gettFp(), tmp.getX()-50, tmp.getY()-50);
@@ -275,7 +275,7 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX() - r, tmp.getY() - r, 2 * r, 2 * r);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                g.drawString("t1", tmp.getX() - 30, tmp.getY());
+                g.drawString("t1", tmp.getX() - 40, tmp.getY());
                 // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp:
                 // "+tmp.gettCp()+",Rp:
                 // "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp:
@@ -299,7 +299,7 @@ public class Board extends JPanel implements ActionListener {
                 g.fillOval(tmp.getX() - r, tmp.getY() - r, 2 * r, 2 * r);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
-                g.drawString("t2", tmp.getX() - 30, tmp.getY());
+                g.drawString("t2", tmp.getX() - 40, tmp.getY());
                 // g.drawString("Lp: "+tmp.gettLp()+",Pp: "+tmp.gettPp()+"Cp:
                 // "+tmp.gettCp()+",Rp:
                 // "+tmp.gettRp()+",dp: "+tmp.gettdp()+",Parp: "+tmp.gettParp()+",Fp:
@@ -381,15 +381,17 @@ public class Board extends JPanel implements ActionListener {
             // g.drawString("tp1: " + tmp.gettsp1() + ",tp2: " + tmp.gettsp2(), tmp.getX() -
             // 50,
             // tmp.getY() - 55);
+            g.setFont(new Font("Helvetica", Font.PLAIN, 15));
             switch (counter) {
                 case 0:
+                
                     g.setColor(Color.BLACK);
                     g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
                             tmp.getY() - 40);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
                     g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
                             tmp.getY() - 25);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
                     g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
                     break;
                 case 1:
@@ -397,22 +399,22 @@ public class Board extends JPanel implements ActionListener {
                     g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
                             tmp.getY() - 40);
                     g.setColor(Color.BLACK);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
                     g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
                             tmp.getY() - 25);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
                     g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
                     break;
                 case 2:
                     g.setColor(Color.BLACK);
                     g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
                             tmp.getY() - 40);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
                     g.setColor(Color.BLUE);
                     g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
                             tmp.getY() - 25);
                     g.setColor(Color.BLACK);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
                     g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
                     break;
                 case 3:
@@ -420,32 +422,32 @@ public class Board extends JPanel implements ActionListener {
                     g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
                             tmp.getY() - 40);
                     g.setColor(Color.BLUE);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
                     g.setColor(Color.BLACK);
                     g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
                             tmp.getY() - 25);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
                     g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
                     break;
                 case 4:
                     g.setColor(Color.BLACK);
                     g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
                             tmp.getY() - 40);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
                     g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
                             tmp.getY() - 25);
                     g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
                     g.setColor(Color.BLUE);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
                     break;
                 case 5:
                     g.setColor(Color.BLACK);
                     g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
                             tmp.getY() - 40);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
                     g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
                             tmp.getY() - 25);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
                     g.setColor(Color.BLUE);
                     g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
                     break;
