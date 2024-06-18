@@ -5,6 +5,8 @@ import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -35,7 +37,7 @@ public class Board extends JPanel implements ActionListener {
 
         // constracter
         setFocusable(true);
-        int DELAY = 300;
+        int DELAY = 350;
         timer = new Timer(DELAY, this);
         timer.start();
         statusbar = parent.getStatusBar();
@@ -64,19 +66,19 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // write lupe instruction
-        if (counter == 0) {
+        if (counter == 1) {
             tGraph.propagationtoP1CandID();
-        } else if (counter == 1) {
-            tGraph.propagationtoP2CandID();
         } else if (counter == 2) {
-            tGraph.definetoP1();
+            tGraph.propagationtoP2CandID();
         } else if (counter == 3) {
-            tGraph.definetoP2();
+            tGraph.definetoP1();
         } else if (counter == 4) {
-            tGraph.propagationNG();
+            tGraph.definetoP2();
         } else if (counter == 5) {
-            tGraph.readySTDAG();;
+            tGraph.propagationNG();
         } else if (counter == 6) {
+            tGraph.readySTDAG();;
+        } else if (counter == 7) {
             tGraph.constructionST_DAG();
         }
         repaint();
@@ -118,6 +120,7 @@ public class Board extends JPanel implements ActionListener {
 
         g.setColor(Color.BLACK);
         g.setFont(new Font("Helvetica", Font.PLAIN, 13));
+        int r = 40;
 
         ArrayList<Node> Nodelist = tGraph.getNodeList();
         for (int i = 0; i < tGraph.size(); i++) {
@@ -134,7 +137,13 @@ public class Board extends JPanel implements ActionListener {
                     }
                     for (int k = 0; k < P1line.size(); k++) {
                         if (P1line.get(k) == line.get(j)) {
+                            int[] xy = new int[2];
+                            // xy = getArrowxy(r, Nodelist.get(P1line.get(k)).getX(),
+                            // Nodelist.get(P1line.get(k)).getY(), tmp.getX(), tmp.getY());
+                            // var arrow = new Arrow(new Point(tmp.getX(), tmp.getY()),
+                            // new Point(xy[0], xy[1]));
                             g.setColor(Color.GREEN);
+                            // arrow.draw((Graphics2D) g);
                             g.drawLine(tmp.getX() + 10, tmp.getY() + 10,
                                     Nodelist.get(line.get(j)).getX() + 10,
                                     Nodelist.get(line.get(j)).getY() + 10);
@@ -142,7 +151,13 @@ public class Board extends JPanel implements ActionListener {
                     }
                     for (int k = 0; k < P2line.size(); k++) {
                         if (P2line.get(k) == line.get(j)) {
+                            // int[] xy = new int[2];
+                            // xy = getArrowxy(r, Nodelist.get(P2line.get(k)).getX(),
+                            // Nodelist.get(P2line.get(k)).getY(), tmp.getX(), tmp.getY());
+                            // var arrow = new Arrow(new Point(tmp.getX(), tmp.getY()),
+                            // new Point(xy[0], xy[1]));
                             g.setColor(Color.RED);
+                            // arrow.draw((Graphics2D) g);
                             g.drawLine(tmp.getX() - 10, tmp.getY() - 10,
                                     Nodelist.get(line.get(j)).getX() - 10,
                                     Nodelist.get(line.get(j)).getY() - 10);
@@ -168,7 +183,13 @@ public class Board extends JPanel implements ActionListener {
                 for (int j = 0; j < line.size(); j++) {
                     for (int k = 0; k < DAGline.size(); k++) {
                         if (DAGline.get(k) == line.get(j)) {
+                            // int[] xy = new int[2];
+                            // xy = getArrowxy(r, Nodelist.get(DAGline.get(k)).getX(),
+                            // Nodelist.get(DAGline.get(k)).getY(), tmp.getX(), tmp.getY());
+                            // var arrow = new Arrow(new Point(tmp.getX(), tmp.getY()),
+                            // new Point(xy[0], xy[1]));
                             g.setColor(Color.BLUE);
+                            // arrow.draw((Graphics2D) g);
                             g.drawLine(tmp.getX(), tmp.getY(), Nodelist.get(DAGline.get(k)).getX(),
                                     Nodelist.get(DAGline.get(k)).getY());
                             break;
@@ -182,9 +203,9 @@ public class Board extends JPanel implements ActionListener {
             Node tmp = Nodelist.get(i);
             if (tmp.gets1p()) {
                 g.setColor(Color.GREEN);
-                g.drawOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                g.drawOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 g.setColor(Color.WHITE);
-                g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                g.fillOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 g.drawString("s1", tmp.getX() - 30, tmp.getY());
@@ -207,9 +228,9 @@ public class Board extends JPanel implements ActionListener {
                 // g.drawString("" + tmp.getOnPp(), tmp.getX() + 20, tmp.getY() + 20);
             } else if (tmp.gets2p()) {
                 g.setColor(Color.RED);
-                g.drawOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                g.drawOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 g.setColor(Color.WHITE);
-                g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                g.fillOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 g.drawString("s2", tmp.getX() - 30, tmp.getY());
@@ -230,9 +251,9 @@ public class Board extends JPanel implements ActionListener {
                 // g.drawString("" + tmp.gettOnPp(), tmp.getX() + 20, tmp.getY() + 20);
             } else if (tmp.gett1p()) {
                 g.setColor(Color.GREEN);
-                g.drawOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                g.drawOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 g.setColor(Color.WHITE);
-                g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                g.fillOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 g.drawString("t1", tmp.getX() - 30, tmp.getY());
@@ -254,9 +275,9 @@ public class Board extends JPanel implements ActionListener {
                 // g.drawString("" + tmp.gettOnPp(), tmp.getX() + 20, tmp.getY() + 20);
             } else if (tmp.gett2p()) {
                 g.setColor(Color.RED);
-                g.drawOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                g.drawOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 g.setColor(Color.WHITE);
-                g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                g.fillOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
                 g.drawString("t2", tmp.getX() - 30, tmp.getY());
@@ -278,16 +299,19 @@ public class Board extends JPanel implements ActionListener {
                 // g.drawString("" + tmp.gettOnPp(), tmp.getX() + 20, tmp.getY() + 20);
             } else {
                 g.setColor(Color.BLACK);
-                g.drawOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                g.drawOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 if (tmp.getToP1ID() == i) {
                     g.setColor(Color.RED);
-                    g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                    g.fillOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 } else if (tmp.getToP2ID() == i) {
                     g.setColor(Color.BLUE);
-                    g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                    g.fillOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
+                } else if (tmp.getNG() == 1) {
+                    g.setColor(Color.GRAY);
+                    g.fillOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 } else {
                     g.setColor(Color.WHITE);
-                    g.fillOval(tmp.getX() - 20, tmp.getY() - 20, 40, 40);
+                    g.fillOval(tmp.getX() - r / 2, tmp.getY() - r / 2, r, r);
                 }
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Helvetica", Font.PLAIN, 13));
@@ -336,14 +360,106 @@ public class Board extends JPanel implements ActionListener {
             // tmp.getY() - 70);
             // g.drawString("tp1: " + tmp.gettsp1() + ",tp2: " + tmp.gettsp2(), tmp.getX() - 50,
             // tmp.getY() - 55);
-            g.drawString("DAGSuccID: " + tmp.getDAGSuccID(), tmp.getX() - 50, tmp.getY() - 55);
-            g.drawString("toP1CandID: " + tmp.getP1CandID() + ",toP2CandID: " + tmp.getP2CandID(),
-                    tmp.getX() - 50, tmp.getY() - 40);
-            g.drawString("toP1ID: " + tmp.getToP1ID() + ",toP2ID: " + tmp.getToP2ID() + ",NG: "
-                    + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 25);
+            switch (counter) {
+                case 0:
+                    g.setColor(Color.BLACK);
+                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+                            tmp.getY() - 40);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+                            tmp.getY() - 25);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+                    break;
+                case 1:
+                    g.setColor(Color.RED);
+                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+                            tmp.getY() - 40);
+                    g.setColor(Color.BLACK);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+                            tmp.getY() - 25);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+                    break;
+                case 2:
+                    g.setColor(Color.BLACK);
+                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+                            tmp.getY() - 40);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.setColor(Color.RED);
+                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+                            tmp.getY() - 25);
+                    g.setColor(Color.BLACK);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+                    break;
+                case 3:
+                    g.setColor(Color.BLACK);
+                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+                            tmp.getY() - 40);
+                    g.setColor(Color.RED);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.setColor(Color.BLACK);
+                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+                            tmp.getY() - 25);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+                    break;
+                case 4:
+                    g.setColor(Color.BLACK);
+                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+                            tmp.getY() - 40);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+                            tmp.getY() - 25);
+                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+                    g.setColor(Color.RED);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    break;
+                case 5:
+                    g.setColor(Color.BLACK);
+                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+                            tmp.getY() - 40);
+                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 48, tmp.getY() - 40);
+                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+                            tmp.getY() - 25);
+                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 48, tmp.getY() - 25);
+                    g.setColor(Color.RED);
+                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+                    break;
+                case 6:
+                    g.setColor(Color.BLACK);
+                    g.drawString("DAGSuccID: " + tmp.getDAGSuccID(), tmp.getX() - 50,
+                            tmp.getY() - 25);
+                    break;
+                case 7:
+                    g.setColor(Color.BLUE);
+                    g.drawString("DAGSuccID: " + tmp.getDAGSuccID(), tmp.getX() - 50,
+                            tmp.getY() - 25);
+                    break;
+                default:
+                    break;
+            }
+            // g.drawString("DAGSuccID: " + tmp.getDAGSuccID(), tmp.getX() - 50, tmp.getY() - 55);
+            // g.drawString("toP1CandID: " + tmp.getP1CandID() + "toP1ID: " + tmp.getToP1ID(),
+            // tmp.getX() - 50, tmp.getY() - 40);
+            // g.drawString("toP2CandID: " + tmp.getP2CandID() + ",toP2ID: " + tmp.getToP2ID(),
+            // tmp.getX() - 50, tmp.getY() - 25);
+            // g.drawString("toP1ID: " + tmp.getToP1ID() + ",toP2ID: " + tmp.getToP2ID() + ",NG: "
+            // + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 25);
             // g.drawString(, tmp.getX() - 50, tmp.getY() - 20);
 
         }
+    }
+
+    public int[] getArrowxy(int r, int x, int y, int x1, int y1) {
+        int[] ans = new int[2];
+        double Z = Math.sqrt((x - x1) * (x - x1) + (y - y1) * (y - y1));
+        double L = Z - r;
+        ans[0] = (int) ((L * x + r * x1) / Z);
+        ans[1] = (int) ((L * x + r * y1) / Z);
+        return ans;
     }
 
     @Override

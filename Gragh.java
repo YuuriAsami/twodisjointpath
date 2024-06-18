@@ -83,7 +83,7 @@ class Graph {
                     a[i].setList(14);
                     break;
                 case 12:
-                    a[i] = new Node(735, 900, i, false, false, false, false);
+                    a[i] = new Node(735, 850, i, false, false, false, false);
                     a[i].setList(9);
                     a[i].setList(16);
                     break;
@@ -135,7 +135,7 @@ class Graph {
                     a[i].setList(23);
                     break;
                 case 21:
-                    a[i] = new Node(1020, 490, i, false, false, false, false);
+                    a[i] = new Node(1060, 490, i, false, false, false, false);
                     a[i].setList(17);
                     a[i].setList(19);
                     a[i].setList(20);
