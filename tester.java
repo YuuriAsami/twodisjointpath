@@ -28,7 +28,7 @@ public class tester extends JFrame {
         board.start();
 
         setTitle("test");
-        setSize(1800, 1000);
+        setSize(1500, 1000);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
