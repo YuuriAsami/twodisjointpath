@@ -382,88 +382,88 @@ public class Board extends JPanel implements ActionListener {
             // 50,
             // tmp.getY() - 55);
             g.setFont(new Font("Helvetica", Font.PLAIN, 15));
-            switch (counter) {
-                case 0:
+            // switch (counter) {
+            //     case 0:
                 
-                    g.setColor(Color.BLACK);
-                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
-                            tmp.getY() - 40);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
-                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
-                            tmp.getY() - 25);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
-                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
-                    break;
-                case 1:
-                    g.setColor(Color.BLUE);
-                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
-                            tmp.getY() - 40);
-                    g.setColor(Color.BLACK);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
-                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
-                            tmp.getY() - 25);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
-                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
-                    break;
-                case 2:
-                    g.setColor(Color.BLACK);
-                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
-                            tmp.getY() - 40);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
-                    g.setColor(Color.BLUE);
-                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
-                            tmp.getY() - 25);
-                    g.setColor(Color.BLACK);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
-                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
-                    break;
-                case 3:
-                    g.setColor(Color.BLACK);
-                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
-                            tmp.getY() - 40);
-                    g.setColor(Color.BLUE);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
-                    g.setColor(Color.BLACK);
-                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
-                            tmp.getY() - 25);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
-                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
-                    break;
-                case 4:
-                    g.setColor(Color.BLACK);
-                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
-                            tmp.getY() - 40);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
-                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
-                            tmp.getY() - 25);
-                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
-                    g.setColor(Color.BLUE);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
-                    break;
-                case 5:
-                    g.setColor(Color.BLACK);
-                    g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
-                            tmp.getY() - 40);
-                    g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
-                    g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
-                            tmp.getY() - 25);
-                    g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
-                    g.setColor(Color.BLUE);
-                    g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
-                    break;
-                case 6:
-                    g.setColor(Color.BLACK);
-                    g.drawString("DAGSuccID: " + tmp.getDAGSuccID(), tmp.getX() - 50,
-                            tmp.getY() - 25);
-                    break;
-                case 7:
-                    g.setColor(Color.RED);
-                    g.drawString("DAGSuccID: " + tmp.getDAGSuccID(), tmp.getX() - 50,
-                            tmp.getY() - 25);
-                    break;
-                default:
-                    break;
-            }
+            //         g.setColor(Color.BLACK);
+            //         g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 40);
+            //         g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
+            //         g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 25);
+            //         g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
+            //         //g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+            //         break;
+            //     case 1:
+            //         g.setColor(Color.BLUE);
+            //         g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 40);
+            //         g.setColor(Color.BLACK);
+            //         g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
+            //         g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 25);
+            //         g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
+            //         //g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+            //         break;
+            //     case 2:
+            //         g.setColor(Color.BLACK);
+            //         g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 40);
+            //         g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
+            //         g.setColor(Color.BLUE);
+            //         g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 25);
+            //         g.setColor(Color.BLACK);
+            //         g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
+            //         //g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+            //         break;
+            //     case 3:
+            //         g.setColor(Color.BLACK);
+            //         g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 40);
+            //         g.setColor(Color.BLUE);
+            //         g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
+            //         g.setColor(Color.BLACK);
+            //         g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 25);
+            //         g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
+            //         //g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+            //         break;
+            //     case 4:
+            //         g.setColor(Color.BLACK);
+            //         g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 40);
+            //         g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
+            //         g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 25);
+            //         //g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+            //         g.setColor(Color.BLUE);
+            //         g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
+            //         break;
+            //     case 5:
+            //         g.setColor(Color.BLACK);
+            //         g.drawString("toP1CandID: " + tmp.getP1CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 40);
+            //         g.drawString(",toP1ID: " + tmp.getToP1ID(), tmp.getX() + 50, tmp.getY() - 40);
+            //         g.drawString("toP2CandID: " + tmp.getP2CandID(), tmp.getX() - 50,
+            //                 tmp.getY() - 25);
+            //         g.drawString(",toP2ID: " + tmp.getToP2ID(), tmp.getX() + 50, tmp.getY() - 25);
+            //         // g.setColor(Color.BLUE);
+            //         // g.drawString("NG: " + tmp.getNG(), tmp.getX() - 50, tmp.getY() - 55);
+            //         break;
+            //     case 6:
+            //         g.setColor(Color.BLACK);
+            //         g.drawString("DAGSuccID: " + tmp.getDAGSuccID(), tmp.getX() - 50,
+            //                 tmp.getY() - 25);
+            //         break;
+            //     case 7:
+            //         g.setColor(Color.RED);
+            //         g.drawString("DAGSuccID: " + tmp.getDAGSuccID(), tmp.getX() - 50,
+            //                 tmp.getY() - 25);
+            //         break;
+            //     default:
+            //         break;
+            // }
             // g.drawString("DAGSuccID: " + tmp.getDAGSuccID(), tmp.getX() - 50, tmp.getY()
             // - 55);
             // g.drawString("toP1CandID: " + tmp.getP1CandID() + "toP1ID: " +
